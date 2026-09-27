@@ -1,0 +1,2128 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>TOEIC 21.11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* TOEIC-тренажёр, фаза B frontend-design по макету C «Путь к экзамену» (_mockups/toeic-trainer/mock.html?v=c).
+   Токены и шрифты — доска v3 (board/index.html, style#ui-v3) на bare :root; английский материал — Source Serif 4. */
+:root{
+  --sans:'IBM Plex Sans Thai Looped','IBM Plex Sans Thai','Noto Sans Thai',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Anuphan','IBM Plex Sans Thai','Noto Sans Thai',-apple-system,'Segoe UI',sans-serif;
+  --serif:'Source Serif 4','Georgia','Times New Roman',serif;
+  --paper:#EDF2F1;--card:#FFFFFF;--card-2:#F5F8F7;--rule:#DAE3E1;--rule-2:#BFCDCA;
+  --ink:#13262B;--ink-2:#44595F;--ink-3:#6A7F84;
+  --accent:#0A6A62;--accent-soft:#D9EEEA;--accent-ink:#FFFFFF;
+  --crit:#B3261E;--crit-bg:#FCE7E4;--warn:#875600;--warn-bg:#FBEFD6;--good:#1C6A42;--good-bg:#DDF0E4;
+  --scrim:rgba(8,20,22,.46);--lift:0 -10px 34px rgba(8,30,32,.20);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1618;--card:#162124;--card-2:#1B282B;--rule:#253538;--rule-2:#33474B;
+    --ink:#E3EDEB;--ink-2:#A4B8B6;--ink-3:#7C9391;
+    --accent:#6ACFC1;--accent-soft:#143538;--accent-ink:#06201C;
+    --crit:#F2A39B;--crit-bg:#3A1D1A;--warn:#E8BE78;--warn-bg:#33260F;--good:#86D3A6;--good-bg:#11291C;
+    --scrim:rgba(0,0,0,.6);--lift:0 -10px 34px rgba(0,0,0,.5);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1618;--card:#162124;--card-2:#1B282B;--rule:#253538;--rule-2:#33474B;
+  --ink:#E3EDEB;--ink-2:#A4B8B6;--ink-3:#7C9391;
+  --accent:#6ACFC1;--accent-soft:#143538;--accent-ink:#06201C;
+  --crit:#F2A39B;--crit-bg:#3A1D1A;--warn:#E8BE78;--warn-bg:#33260F;--good:#86D3A6;--good-bg:#11291C;
+  --scrim:rgba(0,0,0,.6);--lift:0 -10px 34px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.65 var(--sans);overflow-wrap:break-word}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:disabled{cursor:default}
+button:focus-visible,a:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+p,h1,h2,h3,h4,ul,ol,dl,dd{margin:0}
+a{color:var(--accent)}
+.wrap{max-width:600px;margin:0 auto;padding-inline:16px;display:grid;gap:14px;padding-block:8px 24px;width:100%}
+.num{font-family:var(--head);font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-3)}
+.small{font-size:.875rem;line-height:1.55}
+.nw{white-space:nowrap}
+.screen{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+.screen>.wrap{flex:1;align-content:start}
+
+/* ---- плашки ---- */
+.banner{max-width:600px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;font-size:.875rem;line-height:1.45}
+.banners{background:var(--warn-bg);color:var(--warn)}
+.banners .banner a{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+
+/* ---- кнопки ---- */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 20px;border-radius:14px;border:1px solid transparent;font:600 1.0625rem/1.2 var(--head);text-decoration:none}
+.btn.pri{background:var(--accent);color:var(--accent-ink)}
+.btn.sec{background:var(--card);border-color:var(--rule-2);color:var(--ink)}
+.btn:disabled{opacity:.5}
+.link{background:none;border:0;padding:10px 0;min-height:44px;color:var(--accent);font-weight:500;text-decoration:underline;text-underline-offset:3px;text-align:left}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:16px}
+.stack{display:grid;gap:12px}
+.icon{width:20px;height:20px;flex:0 0 auto}
+.sec-h{font:600 .9375rem/1.3 var(--head);color:var(--ink-2)}
+
+/* ---- верхние панели ---- */
+.appbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.appbar-in{max-width:600px;margin:0 auto;padding:12px 16px 8px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.appbar h1{font:700 1.375rem/1.3 var(--head)}
+.appbar .date{color:var(--ink-3);font-size:.875rem;white-space:nowrap}
+.qbar{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--rule)}
+.qbar-in{max-width:600px;margin:0 auto;padding:4px 8px 0;display:grid;grid-template-columns:44px 1fr 44px;align-items:center}
+.ib{width:44px;height:44px;border:0;background:none;display:grid;place-items:center;color:var(--ink-2);border-radius:12px}
+.qbar .ttl{text-align:center;line-height:1.3;min-width:0}
+.qbar .ttl b{display:block;font:600 1rem/1.3 var(--head)}
+.qbar .ttl span{font-size:.8125rem;color:var(--ink-3)}
+.prog{width:100%;max-width:600px;margin:0 auto;padding:6px 16px 10px;display:flex;align-items:center;gap:10px;font-size:.8125rem;color:var(--ink-3)}
+.prog .num{min-width:5ch}
+.prog .track{flex:1;height:6px;border-radius:3px;background:var(--rule);overflow:hidden}
+.prog .fill{height:100%;background:var(--accent);border-radius:3px}
+
+/* ---- плеер ---- */
+.player{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.play{width:56px;height:56px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;padding:0}
+.play svg{width:24px;height:24px}
+.play:disabled{background:var(--card-2);color:var(--ink-3);border:1px solid var(--rule-2);opacity:1}
+.play[data-state="loading"]{background:var(--card-2);border:1px solid var(--rule-2)}
+.play[data-state="loading"]::after{content:"";width:22px;height:22px;border-radius:50%;border:3px solid var(--rule-2);border-top-color:var(--accent);animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.play[data-state="playing"]{box-shadow:0 0 0 5px var(--accent-soft)}
+.pl-t{display:grid;gap:6px;min-width:0}
+.pl-t b{font:600 1rem/1.3 var(--head)}
+/* полоса: видимая дорожка 6 px, зона пальца 32 px (отрицательные поля не раздвигают подпись и время) */
+.scrub{position:relative;height:32px;margin:-13px 0;display:flex;align-items:center;touch-action:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.scrub .bar{flex:1;height:6px;border-radius:3px;background:var(--rule);position:relative;overflow:hidden}
+.scrub i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--accent)}
+.scrub .knob{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--card);pointer-events:none}
+.player.drag .knob{width:22px;height:22px;margin:-11px 0 0 -11px}
+.scrub.off{cursor:default}
+.scrub.off .knob{display:none}
+.pl-t b,.pl-time{position:relative;pointer-events:none}
+.pl-time{display:flex;justify-content:space-between;gap:8px;font-size:.8125rem;color:var(--ink-3)}
+.back5{width:44px;height:44px;border-radius:50%;border:1px solid var(--rule-2);background:var(--card);color:var(--ink-2);display:grid;place-items:center;padding:0}
+.back5 svg{grid-area:1/1;width:32px;height:32px}
+.back5 span{grid-area:1/1;font-size:.6875rem;font-weight:700;line-height:1;margin-top:1px}
+.back5:disabled{color:var(--ink-3);opacity:.45}
+.pl-err{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;color:var(--crit);font-size:.875rem}
+
+/* ---- вопрос и варианты ---- */
+.q{display:grid;gap:10px}
+.stem{font:600 1.125rem/1.5 var(--serif)}
+.stem:not([lang="en"]){font-family:var(--head)}
+.opts{display:grid;gap:8px;list-style:none;padding:0}
+.opt{width:100%;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:center;text-align:left;min-height:52px;padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--rule-2);background:var(--card)}
+.opt .t{font:400 1.0625rem/1.45 var(--serif);min-width:0}
+.bub{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--ink-3);display:grid;place-items:center;font:600 .9375rem/1 var(--head);color:var(--ink-2)}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.sel .bub{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.q .confirm{width:100%;margin-top:4px}
+.q .confirm:disabled{background:var(--card-2);border-color:var(--rule-2);color:var(--ink-3);opacity:1}
+.letters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;list-style:none;padding:0}
+.letters.k3{grid-template-columns:repeat(3,1fr)}
+.letters .opt{grid-template-columns:1fr;justify-items:center;min-height:64px;padding:8px}
+.letters .bub{width:40px;height:40px;font-size:1.125rem}
+.hint{font-size:.875rem;color:var(--ink-3)}
+.b-dots{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.8125rem;color:var(--ink-3)}
+.b-dots i{width:8px;height:8px;border-radius:50%;background:var(--rule-2)}
+.b-dots i.on{background:var(--accent);width:20px;border-radius:4px}
+.b-dots i.did{background:var(--ink-3)}
+.photo{display:block;width:100%;height:auto;border-radius:12px;background:var(--card-2);aspect-ratio:3/2;object-fit:cover}
+/* P3/P4: вопросы блока до записи — текущий карточкой с вариантами, остальные текстом; плеер закреплён снизу */
+.qset{list-style:none;padding:0;display:grid;gap:14px}
+.qs{padding:0 2px}
+.qs.cur{padding:14px;border-radius:16px;border:1.5px solid var(--accent);background:var(--card)}
+.qs-h{display:flex;gap:10px;align-items:flex-start}
+.qs-h>p{flex:1;min-width:0}
+.qn{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--rule-2);color:var(--ink-3);font-size:.875rem;font-weight:600;margin-top:1px}
+.qs.cur .qn{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.qs-stem{font:600 1rem/1.5 var(--serif);color:var(--ink-2)}
+.qs-tag{font:500 .75rem/1.6 var(--sans);color:var(--ink-3);border:1px solid var(--rule-2);border-radius:999px;padding:0 7px;white-space:nowrap;margin-top:3px}
+.qs.did .qs-stem,.qs.did .qs-opts{color:var(--ink-3)}
+.qs-opts{list-style:none;padding:0;margin:4px 0 0 38px;display:grid;gap:2px;font:400 .9375rem/1.45 var(--serif);color:var(--ink-2)}
+.qs-opts li{display:grid;grid-template-columns:16px 1fr;gap:6px}
+.qs-opts b{font:600 .8125rem/1.8 var(--head);color:var(--ink-3)}
+.bottom .player .play{width:52px;height:52px}
+
+/* ---- тексты P6/P7 ---- */
+.c-split{display:flex;flex-direction:column;flex:1}
+.c-text{background:var(--card);border-bottom:1px solid var(--rule);padding:10px 16px 12px}
+.c-text-in{max-width:568px;margin:0 auto;display:grid;gap:10px}
+.c-text .scroll{max-height:42vh;overflow:auto;overscroll-behavior:contain;padding-right:4px}
+.c-text .scroll.more{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 44px),transparent)}
+.tabs{display:flex;gap:4px;padding:4px;background:var(--card-2);border:1px solid var(--rule);border-radius:12px}
+.tabs button{flex:1;min-width:0;min-height:40px;border:0;border-radius:9px;background:none;font:600 .9375rem/1.2 var(--head);color:var(--ink-2);padding:0 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.doc{font:400 1rem/1.6 var(--serif);display:grid;gap:10px}
+.doc .mailh{display:grid;grid-template-columns:auto 1fr;gap:0 10px;font-size:.9375rem;color:var(--ink-2);padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.doc .mailh span:nth-child(odd){font-weight:600}
+.blank{display:inline-block;min-width:3.2em;padding:0 6px;margin:0 1px;border-radius:6px;border:1.5px dashed var(--rule-2);color:var(--ink-3);font:600 .8125rem/1.5 var(--head);text-align:center;vertical-align:1px}
+.blank.cur{border:2px solid var(--accent);background:var(--accent-soft);color:var(--accent)}
+.blank.did{border-style:solid;color:var(--ink-2)}
+
+/* ---- разбор ---- */
+.verdict{display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;padding:12px 14px;border-radius:14px;font:600 1.0625rem/1.35 var(--head)}
+.verdict.no{background:var(--crit-bg);color:var(--crit)}
+.verdict.ok{background:var(--good-bg);color:var(--good)}
+.c-yours{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center;font-size:.9375rem}
+.c-yours .bub{width:28px;height:28px}
+.c-yours .bub.w{background:var(--crit);border-color:var(--crit);color:var(--card)}
+.c-yours .bub.r{background:var(--good);border-color:var(--good);color:var(--card)}
+.c-yours .t{font:400 1rem/1.45 var(--serif)}
+.c-yours .t small{font:500 .8125rem/1.3 var(--sans);color:var(--ink-3);margin-left:6px}
+.why{font-size:1rem;line-height:1.7}
+.words{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.9375rem}
+.words dt{font:600 1rem/1.5 var(--serif)}
+.words dd{color:var(--ink-2)}
+.tx{display:grid;gap:8px}
+.tx p{display:grid;grid-template-columns:28px 1fr;gap:8px;font:400 1rem/1.55 var(--serif)}
+.tx p.say{grid-template-columns:1fr}
+.spk{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font:600 .8125rem/1 var(--head);background:var(--card-2);border:1px solid var(--rule);color:var(--ink-2)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row-sb{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.chip-btn{min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--rule-2);background:var(--card);display:inline-flex;align-items:center;gap:8px;font-weight:500}
+.chip-btn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.flag{display:inline-flex;align-items:center;gap:6px;color:var(--ink-3);font-size:.875rem;background:none;border:0;min-height:44px;padding:0}
+
+/* ---- шкалы ---- */
+.parts{display:grid;gap:10px}
+.prow{display:grid;grid-template-columns:1fr 88px 52px;gap:10px;align-items:center}
+.prow .pn{line-height:1.3;min-width:0}
+.prow .pn b{font:600 .9375rem/1.3 var(--head)}
+.prow .pn>span:not(.weak-tag){display:block;font-size:.8125rem;color:var(--ink-3)}
+.meter{height:8px;border-radius:4px;background:var(--rule);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:4px;background:var(--accent)}
+.prow .v{text-align:right;font:600 .9375rem/1 var(--head);font-variant-numeric:tabular-nums}
+.weak-tag{display:inline-block;margin-left:6px;padding:0 7px;border-radius:999px;background:var(--warn-bg);color:var(--warn);font:500 .75rem/1.6 var(--sans);vertical-align:1px}
+.group-h{font:600 .8125rem/1.3 var(--head);color:var(--ink-3);padding-top:4px}
+.range{display:grid;gap:6px}
+.range .top{display:flex;justify-content:space-between;align-items:baseline}
+.range .top b{font:600 1rem/1.3 var(--head)}
+.range .top .num{font-size:1.375rem;font-weight:700}
+.scale{position:relative;height:12px;border-radius:6px;background:var(--rule)}
+.scale i{position:absolute;top:0;bottom:0;border-radius:6px;background:var(--accent)}
+.scale-ax{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.note{font-size:.875rem;color:var(--ink-3)}
+
+/* ---- главный: путь к экзамену ---- */
+.c-cal{display:grid;gap:10px;padding:16px;border-radius:18px;background:var(--card);border:1px solid var(--rule)}
+.c-cal .hdr{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.c-cal .hdr b{font:700 1.25rem/1.3 var(--head)}
+.c-grid{display:grid;grid-template-columns:34px repeat(7,1fr);gap:4px;align-items:center}
+.c-grid .wd{text-align:center;font-size:.6875rem;color:var(--ink-3)}
+.c-grid .mo{font:600 .6875rem/1.1 var(--head);color:var(--ink-3)}
+.c-grid .d{aspect-ratio:1;border-radius:7px;background:var(--card-2);border:1px solid var(--rule);display:grid;place-items:center;font:500 .75rem/1 var(--head);color:var(--ink-3);font-variant-numeric:tabular-nums}
+.c-grid .d.done{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.c-grid .d.today{border:2px solid var(--accent);color:var(--accent);font-weight:700}
+.c-grid .d.done.today{color:var(--accent-ink)}
+.c-grid .d.past{background:transparent;border-color:transparent}
+.c-grid .d.exam{background:var(--warn-bg);border:2px solid var(--warn);color:var(--warn);font-weight:700;font-size:.6875rem}
+.c-leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.8125rem;color:var(--ink-2)}
+.c-leg span{display:inline-flex;align-items:center;gap:6px}
+.c-leg i{width:12px;height:12px;border-radius:4px}
+.c-start{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:14px 14px 14px 16px;border-radius:18px;background:var(--card);border:1px solid var(--rule)}
+.c-start b{font:700 1.125rem/1.3 var(--head);display:block}
+.c-start .btn{min-width:88px}
+.nav{position:sticky;bottom:0;z-index:10;background:var(--card);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px)}
+.nav-in{max-width:600px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+.nav button{min-height:56px;border:0;background:none;display:grid;justify-items:center;gap:2px;padding:6px 0;font:500 .75rem/1.2 var(--sans);color:var(--ink-3)}
+.nav button[aria-current="page"]{color:var(--accent)}
+.nav svg{width:22px;height:22px}
+.bottom{position:sticky;bottom:0;z-index:10;background:color-mix(in srgb,var(--paper) 94%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--rule);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+.bottom-in{max-width:600px;margin:0 auto;display:grid;gap:8px}
+
+/* ---- первый вход, итог, код, атрибуция ---- */
+.hero{display:grid;gap:8px;padding-top:8px}
+.hero h2{font:700 1.5rem/1.3 var(--head)}
+.steps{display:grid;gap:10px;list-style:none;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;counter-increment:s}
+.steps li::before{content:counter(s);width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font:600 .875rem/1 var(--head)}
+.big-n{font:700 2.25rem/1.1 var(--head);font-variant-numeric:tabular-nums}
+.code-box{width:100%;min-height:120px;resize:vertical;padding:12px;border-radius:12px;border:1px solid var(--rule-2);background:var(--card-2);font:400 1rem/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;word-break:break-all}
+.msg-err{color:var(--crit);font-size:.9375rem}
+.msg-ok{color:var(--good);font-size:.9375rem}
+.attrib{display:grid;gap:12px;list-style:none;padding:0}
+.attrib li{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:start;font-size:.875rem;line-height:1.5}
+.attrib img{width:72px;height:48px;object-fit:cover;border-radius:8px;background:var(--card-2)}
+.attrib a{word-break:break-all}
+
+/* ---- шторка и всплывашка ---- */
+.shade{position:fixed;inset:0;background:var(--scrim);z-index:20}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;max-height:82vh;overflow:auto;background:var(--card);border-radius:22px 22px 0 0;box-shadow:var(--lift);padding:8px 16px calc(14px + env(safe-area-inset-bottom,0px))}
+.sheet-in{max-width:600px;margin:0 auto;display:grid;gap:12px}
+.handle{width:40px;height:5px;border-radius:3px;background:var(--rule-2);margin:4px auto 2px}
+.reasons{display:grid;gap:8px}
+.reasons button{min-height:52px;text-align:left;padding:10px 14px;border-radius:14px;border:1px solid var(--rule-2);background:var(--card)}
+.reasons button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.toast{pointer-events:none;position:fixed;left:16px;right:16px;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:30;max-width:568px;margin:0 auto;padding:12px 16px;border-radius:14px;background:var(--ink);color:var(--paper);font-size:.9375rem;text-align:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="banners" class="banners"></div>
+<div id="app" lang="th"><div class="wrap"><p class="muted">กำลังโหลด…</p></div></div>
+<div id="sheet-root"></div>
+<div id="toast" class="toast" role="status" hidden></div>
+<script id="manifest" type="application/json">{"v": 1, "build": "2026-09-27T12:31:16", "url": "https://sk2flash-rgb.github.io/toeic-trainer/", "bank": ["bank/b01-p1-8328ccdb.json", "bank/b01-p2-ffa52a76.json", "bank/b01-p3-070809c4.json", "bank/b01-p4-00ab2418.json", "bank/b01-p5-33eb74c2.json", "bank/b01-p6-f0c1b9b1.json", "bank/b01-p7-2e7b8f45.json", "bank/diag-a55729cd.json"], "img": {"c01-reception.jpg": "img/c01-reception-65ca6498.jpg", "c06-office.jpg": "img/c06-office-482fbeb7.jpg", "c07-office.jpg": "img/c07-office-10a3ab85.jpg", "c08-office.jpg": "img/c08-office-b117937c.jpg", "c11-clinic.jpg": "img/c11-clinic-70f0641b.jpg", "c12-clinic.jpg": "img/c12-clinic-0ed80ff0.jpg", "c13-clinic.jpg": "img/c13-clinic-ab6ccc4f.jpg", "c15-classroom.jpg": "img/c15-classroom-04fcb542.jpg", "c19-cafe.jpg": "img/c19-cafe-736728e6.jpg", "c23-warehouse.jpg": "img/c23-warehouse-eeca8b5e.jpg", "c10-clinic.jpg": "img/c10-clinic-f68cc946.jpg", "c20-cafe.jpg": "img/c20-cafe-2147aac4.jpg"}, "audio": {"b01-p1-1-8ff2639e.mp3": "audio/b01-p1-1-8ff2639e.mp3", "b01-p2-1-c6ec96c0.mp3": "audio/b01-p2-1-c6ec96c0.mp3", "b01-p2-2-59642517.mp3": "audio/b01-p2-2-59642517.mp3", "b01-p3-1-7188fb6f.mp3": "audio/b01-p3-1-7188fb6f.mp3", "b01-p3-2-b836f79e.mp3": "audio/b01-p3-2-b836f79e.mp3", "b01-p4-1-b6cbafd8.mp3": "audio/b01-p4-1-b6cbafd8.mp3", "b01-p4-2-d62b831f.mp3": "audio/b01-p4-2-d62b831f.mp3", "diag-p1-1-bd7f1fd9.mp3": "audio/diag-p1-1-bd7f1fd9.mp3", "diag-p2-1-0015c510.mp3": "audio/diag-p2-1-0015c510.mp3", "diag-p3-1-b9aeb7c9.mp3": "audio/diag-p3-1-b9aeb7c9.mp3", "diag-p4-1-6c577557.mp3": "audio/diag-p4-1-6c577557.mp3"}, "attrib": [{"file": "c01-reception.jpg", "title": "File:Receptionist attending to clients at the out patient.JPG", "author": "Maria Immaculata Hospital", "license": "CC BY-SA 4.0", "license_url": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Receptionist_attending_to_clients_at_the_out_patient.JPG", "changes": "уменьшено до 1000×670 px, JPEG ≤150 КБ"}, {"file": "c06-office.jpg", "title": "File:FNV Belastingservice.JPG", "author": "S.J. de Waard", "license": "CC BY 3.0", "license_url": "https://creativecommons.org/licenses/by/3.0", "source": "https://commons.wikimedia.org/wiki/File:FNV_Belastingservice.JPG", "changes": "уменьшено до 1000×752 px, JPEG ≤150 КБ"}, {"file": "c07-office.jpg", "title": "File:FEMA - 44994 - FEMA Public Assistance specialist in Illinois.jpg", "author": "Patsy Lynch", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:FEMA_-_44994_-_FEMA_Public_Assistance_specialist_in_Illinois.jpg", "changes": "уменьшено до 1000×773 px, JPEG ≤150 КБ"}, {"file": "c08-office.jpg", "title": "File:Partner Staff (52388904223).jpg", "author": "Joshua Tree National Park", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Partner_Staff_(52388904223).jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c10-clinic.jpg", "title": "File:Nurse checks blood pressure.jpg", "author": "Linda Bartlett (Photographer)", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Nurse_checks_blood_pressure.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c11-clinic.jpg", "title": "File:Doctor examines patient's ear.jpg", "author": "Unknown photographer", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Doctor_examines_patient%27s_ear.jpg", "changes": "уменьшено до 1000×669 px, JPEG ≤150 КБ"}, {"file": "c12-clinic.jpg", "title": "File:Doctor consults with patient (7).jpg", "author": "Bill Branson (Photographer)", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Doctor_consults_with_patient_(7).jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c13-clinic.jpg", "title": "File:Doctor examines patient (1).jpg", "author": "Unknown photographer", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Doctor_examines_patient_(1).jpg", "changes": "уменьшено до 1000×652 px, JPEG ≤150 КБ"}, {"file": "c15-classroom.jpg", "title": "File:ELEC Tutor Answering Question Adult Learner Classroom Session.jpg", "author": "Charanjitmannu", "license": "CC BY-SA 4.0", "license_url": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:ELEC_Tutor_Answering_Question_Adult_Learner_Classroom_Session.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c19-cafe.jpg", "title": "File:Waitress Kenya.jpg", "author": "safaritravelplus", "license": "CC0", "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "source": "https://commons.wikimedia.org/wiki/File:Waitress_Kenya.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c20-cafe.jpg", "title": "File:Serving coffee in a cafe during the morning hours with a waiter carrying a tray of drinks for customers.jpg", "author": "Shixart1985", "license": "CC BY 2.0", "license_url": "https://creativecommons.org/licenses/by/2.0", "source": "https://commons.wikimedia.org/wiki/File:Serving_coffee_in_a_cafe_during_the_morning_hours_with_a_waiter_carrying_a_tray_of_drinks_for_customers.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c23-warehouse.jpg", "title": "File:Forklift Operator Smile.jpg", "author": "Marius140%", "license": "CC BY-SA 4.0", "license_url": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Forklift_Operator_Smile.jpg", "changes": "уменьшено до 1000×753 px, JPEG ≤150 КБ"}]}</script>
+<script>(() => {
+'use strict';
+const L = (() => {
+// Чистая логика TOEIC-тренажёра (spec §6): банк, сессии, повтор ошибок, занятие на сегодня, практика,
+// серия дней, оценка балла, код прогресса. Без DOM, хранилища, часов и Math.random: день приходит числом,
+// случайность — функцией rng. Функции, меняющие состояние, меняют переданный объект на месте.
+//
+// Контракт (сигнатуры, форма состояния, формат кода) — toeic/tests/LOGIC_API.md; его «Отклонения от спеки»
+// главнее спеки docs/specs/toeic-trainer/spec.md. Поведение закреплено тестами toeic/tests/*.test.mjs.
+// skip-design-check: модуль без интерфейса (метка для хука дизайна).
+
+const PARTS = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7'];
+const DIAG = 'diag';                              // пул диагностики; остальные пулы — практика
+const AUDIO_PARTS = ['p3', 'p4'];                        // аудио-блок занятия (§6.2 п. 1)
+const NEW_PARTS = ['p1', 'p2', 'p5', 'p6', 'p7'];        // порции новых (§6.2 п. 3)
+const SLOTS = ['diag', 'lesson', 'practice'];
+
+// Доли частей в экзамене из 200 вопросов (вес части §6.2 п. 3).
+const EXAM_SHARE = { p1: 6 / 200, p2: 25 / 200, p3: 39 / 200, p4: 30 / 200, p5: 30 / 200, p6: 16 / 200, p7: 54 / 200 };
+
+const WIN_MAX = 30;    // окно точности части (§6.2 п. 3)
+const LOG_MAX = 60;    // журнал дней (§6.8)
+const FLAGS_MAX = 50;  // отметки «есть ошибка» (§6.8)
+
+// ── Дни и случайность ──────────────────────────────────────────────────────────────────────────────
+
+const DAY_MS = 86400000;
+const DAY0 = Date.UTC(2026, 8, 1);   // день 0 = 01.09.2026
+const EXAM_DAY = 81;          // 21.11.2026
+
+// Локальная календарная дата телефона → номер дня (время суток и переход на летнее время не важны).
+function dayOf(date) {
+  return Math.round((Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - DAY0) / DAY_MS);
+}
+const dayDate = (day) => new Date(DAY0 + day * DAY_MS).toISOString().slice(0, 10);
+const daysToExam = (day) => EXAM_DAY - day;
+
+// mulberry32: детерминированный генератор [0, 1) по целому seed.
+function makeRng(seed) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function shuffle(list, rng) {
+  const a = [...list];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ── Банк ───────────────────────────────────────────────────────────────────────────────────────────
+
+// Файлы банка (SCHEMA.md §2) → индекс. Ключ вопроса "<пул>:<n>"; надгробия остаются в qs, но не в ok.
+function indexBank(files) {
+  const bank = { pools: {}, blocks: [], block: {}, q: {} };
+  for (const file of files) {
+    const pool = file.batch;
+    const info = bank.pools[pool] || (bank.pools[pool] = { build: file.build, maxN: 0 });
+    info.build = Math.max(info.build, file.build);
+    for (const b of file.blocks) {
+      const blk = { id: b.id, pool, part: b.part, qs: [], ok: [] };
+      for (const x of b.questions) {
+        const key = `${pool}:${x.n}`;
+        const ok = x.status === 'ok';
+        bank.q[key] = { key, id: x.id, pool, n: x.n, part: b.part, block: b.id, ok, rev: x.rev_build, answer: x.key };
+        blk.qs.push(key);
+        if (ok) blk.ok.push(key);
+        info.maxN = Math.max(info.maxN, x.n);
+      }
+      bank.blocks.push(blk);
+      bank.block[b.id] = blk;
+    }
+  }
+  return bank;
+}
+
+// ── Состояние ──────────────────────────────────────────────────────────────────────────────────────
+
+function emptyState() {
+  return {
+    v: 1,
+    builds: {},
+    first: {},
+    win: Object.fromEntries(PARTS.map((p) => [p, []])),
+    rev: {},
+    tests: {},
+    streak: { cur: 0, best: 0, last: null },
+    log: [],
+    flags: [],
+    lastAudio: null,
+    diag: null, lesson: null, practice: null,
+  };
+}
+
+// Сверка с загруженным банком (§7.1, §11 «новая партия»): исправленный вопрос снова новый, надгробие
+// снимается с повтора и из пунктов сессий (и отвеченных: ключа у надгробия может не быть — счёт сессии и разнос
+// ошибок диагностики идут без него). Первая сверка пула ничего не сбрасывает; build состояния не понижается
+// (код прогресса, снятый на новой версии, в странице со старым банком).
+function reconcile(state, bank) {
+  let reset = 0;
+  let dropped = 0;
+  for (const q of Object.values(bank.q)) {
+    if (!q.ok) {                                   // надгробие: повтор снят, «увиден» остаётся
+      delete state.rev[q.key];
+      continue;
+    }
+    const known = state.builds[q.pool];
+    if (known !== undefined && q.rev > known && (q.key in state.first || q.key in state.rev)) {
+      delete state.first[q.key];
+      delete state.rev[q.key];
+      reset++;
+    }
+  }
+  for (const slot of SLOTS) {
+    const s = state[slot];
+    if (!s) continue;
+    const keep = s.items.filter((it) => bank.q[it.q] && bank.q[it.q].ok);
+    if (keep.length === s.items.length) continue;
+    dropped += s.items.length - keep.length;
+    s.items = keep;
+    syncPos(s);
+  }
+  for (const [pool, info] of Object.entries(bank.pools)) state.builds[pool] = Math.max(info.build, state.builds[pool] || 0);
+  return { reset, dropped };
+}
+
+const diagDone = (state) => Object.keys(state.tests).length > 0;
+
+// ── Сессии: общее ──────────────────────────────────────────────────────────────────────────────────
+
+const makeItem = (q, r = 0) => ({ q, r, a: null });
+
+function syncPos(s) {
+  const i = s.items.findIndex((it) => it.a === null);
+  s.pos = i < 0 ? s.items.length : i;
+}
+
+function current(state, slot) {
+  const s = state[slot];
+  return (s && s.items[s.pos]) || null;
+}
+
+// Переход к первому неотвеченному пункту (возврата к отвеченным нет).
+function next(state, slot) {
+  const s = state[slot];
+  if (!s) return null;
+  syncPos(s);
+  return s.items[s.pos] || null;
+}
+
+// Ответ на текущий пункт. Повторный тап по отвеченному ничего не меняет (dup).
+function answer(state, bank, slot, letter) {
+  const s = state[slot];
+  const it = s && s.items[s.pos];
+  const q = it && bank.q[it.q];
+  if (!q) return null;
+  if (it.a !== null) return { correct: it.a === q.answer, key: q.answer, dup: true, done: false };
+  const correct = letter === q.answer;
+  const errorsBefore = sessionErrors(s, bank);
+  it.a = letter;
+  scheduleRepeat(state, s, it, q, correct, errorsBefore);
+  logAnswer(state, s.day, correct);
+  const done = s.items.every((x) => x.a !== null);
+  if (done) finishSession(state, bank, s);
+  return { correct, key: q.answer, dup: false, done };
+}
+
+const sessionErrors = (s, bank) => s.items.filter((x) => x.a !== null && x.a !== bank.q[x.q].answer).length;
+
+// Лестница повтора §6.4 и первый ответ. Сроки считаются от дня сессии, не от срока повтора.
+function scheduleRepeat(state, s, it, q, correct, errorsBefore) {
+  const key = it.q;
+  const rev = state.rev[key];
+  if (it.r === 1 && rev) {                         // пункт повтора: результат не важен
+    if (rev.s === 0) state.rev[key] = { s: 1, d: s.day + 7 };
+    else delete state.rev[key];
+    return;
+  }
+  if (!(key in state.first)) {                     // первый ответ: окно точности, ошибка → повтор завтра
+    state.first[key] = correct ? 1 : 0;
+    const win = state.win[q.part] || (state.win[q.part] = []);
+    win.push(correct ? 1 : 0);
+    if (win.length > WIN_MAX) win.splice(0, win.length - WIN_MAX);
+    // §6.1: ошибки диагностики разносятся на дни 1–3 по кругу
+    const spread = s.kind === 'diag' ? errorsBefore % 3 : 0;
+    if (!correct) state.rev[key] = { s: 0, d: s.day + 1 + spread };
+    return;
+  }
+  // уже виденный (практика, «ทบทวน»): ошибка без повтора → повтор завтра; ближний срок не сдвигается
+  if (!correct && !rev) state.rev[key] = { s: 0, d: s.day + 1 };
+}
+
+// Журнал [[день, ответов, верных]] по возрастанию дня, последние 60.
+function logAnswer(state, day, correct) {
+  let row = state.log.find((r) => r[0] === day);
+  if (!row) {
+    row = [day, 0, 0];
+    state.log.push(row);
+    state.log.sort((a, b) => a[0] - b[0]);
+  }
+  row[1]++;
+  if (correct) row[2]++;
+  if (state.log.length > LOG_MAX) state.log.splice(0, state.log.length - LOG_MAX);
+}
+
+// Завершение: диагностика → итоги теста по частям; диагностика, занятие, «ทบทวน» → день серии (§6.5).
+function finishSession(state, bank, s) {
+  if (s.kind === 'diag') {
+    const tally = {};
+    for (const it of s.items) {
+      const q = bank.q[it.q];
+      const t = tally[q.part] || (tally[q.part] = [0, 0]);
+      if (it.a === q.answer) t[0]++;
+      t[1]++;
+    }
+    Object.assign(state.tests, tally);
+  }
+  if (s.kind !== 'practice') creditDay(state, s.day);
+}
+
+// ── Оценка времени §6.2 ────────────────────────────────────────────────────────────────────────────
+
+const NEW_Q_SEC = { p1: 35, p2: 30, p5: 45, p7: 75 };                        // новый: с на вопрос
+const NEW_BLOCK_SEC = { p3: 150, p4: 150, p6: 180 };                         // новый: с на блок
+const REV_Q_SEC = { p1: 40, p2: 40, p5: 40, p6: 45, p7: 45, p3: 30, p4: 30 }; // повтор: с на вопрос
+const REV_GROUP_SEC = { p3: 60, p4: 60 };                                    // повтор P3/P4: + с на группу
+
+function itemsCost(items, bank) {
+  let sec = 0;
+  const blocks = new Set();
+  for (const it of items) {
+    const q = bank.q[it.q];
+    const perQ = it.r ? REV_Q_SEC[q.part] : (NEW_Q_SEC[q.part] || 0);
+    const perBlock = it.r ? (REV_GROUP_SEC[q.part] || 0) : (NEW_BLOCK_SEC[q.part] || 0);
+    sec += perQ;
+    const bk = `${q.block}/${it.r}`;
+    if (perBlock && !blocks.has(bk)) {
+      blocks.add(bk);
+      sec += perBlock;
+    }
+  }
+  return sec;
+}
+
+const sessionCost = (session, bank) => itemsCost(session.items, bank);
+
+// ── Точность и вес части ───────────────────────────────────────────────────────────────────────────
+
+// Доля верных среди последних ≤30 первых ответов части; нет данных — 0,6 (§6.2 п. 3).
+function accuracy(state, part) {
+  const w = state.win[part] || [];
+  return w.length ? w.reduce((a, b) => a + b, 0) / w.length : 0.6;
+}
+
+const partWeights = (state) =>
+  Object.fromEntries(NEW_PARTS.map((p) => [p, EXAM_SHARE[p] * (1.5 - accuracy(state, p))]));
+
+// ── Диагностика §6.1 ───────────────────────────────────────────────────────────────────────────────
+
+const DIAG_BLOCKS = { p1: 2, p2: 6, p3: 2, p4: 2, p5: 8, p6: 1, p7: 2 };   // 40 вопросов
+
+// Незаконченная (или законченная) диагностика возвращается как есть, в т. ч. на другой день.
+function startDiag(state, bank, day) {
+  if (state.diag) return state.diag;
+  const items = [];
+  for (const part of PARTS) {
+    const blocks = bank.blocks.filter((b) => b.pool === DIAG && b.part === part && b.ok.length);
+    for (const b of blocks.slice(0, DIAG_BLOCKS[part])) items.push(...b.ok.map((q) => makeItem(q)));
+  }
+  if (!items.length) return null;
+  state.diag = { kind: 'diag', day, items, pos: 0 };
+  return state.diag;
+}
+
+// ── Занятие на сегодня §6.2 ────────────────────────────────────────────────────────────────────────
+
+const BUDGET = 1200;              // с
+const REVIEW_LIMIT = 600;         // 50 % бюджета (отклонение от 40 % спеки — LOGIC_API.md)
+const MIN_NEW = 10;               // нижняя граница новых в обычный день (§6.2 п. 6)
+const PORTION_BLOCKS = { p1: 1, p2: 2, p5: 3, p6: 1, p7: 1 };
+const REVISE_SIZE = 10;           // «ทบทวน» (§6.2 п. 5)
+
+// Сессия того же дня возвращается; другого дня — отбрасывается (отвеченное уже учтено) и собирается новая.
+function lesson(state, bank, day, rng) {
+  if (state.lesson && state.lesson.day === day) return state.lesson;
+  state.lesson = buildLesson(state, bank, day, rng) || buildRevise(state, bank, day, rng);
+  return state.lesson;
+}
+
+// Группы повтора: ok-вопросы блока со сроком ≤ day; срок группы — минимальный; порядок — срок, затем банк.
+function dueGroups(state, bank, day) {
+  const groups = [];
+  for (const b of bank.blocks) {
+    const qs = b.ok.filter((q) => state.rev[q] && state.rev[q].d <= day);
+    if (!qs.length) continue;
+    const items = qs.map((q) => makeItem(q, 1));
+    groups.push({ items, due: Math.min(...qs.map((q) => state.rev[q].d)), cost: itemsCost(items, bank) });
+  }
+  return groups.sort((a, b) => a.due - b.due);   // сортировка устойчива: равные сроки — порядок банка
+}
+
+// Новые блоки по частям: пул практики, есть неувиденные ok-вопросы; в блоке — только они (блок, брошенный
+// в полночь на 1-м вопросе из 3, приходит остатком; исправленный вопрос увиденного блока — снова новым); порядок банка.
+function newBlockQueues(state, bank) {
+  const queues = Object.fromEntries(PARTS.map((p) => [p, []]));
+  for (const b of bank.blocks) {
+    if (b.pool === DIAG) continue;
+    const fresh = b.ok.filter((q) => !(q in state.first));
+    if (fresh.length) queues[b.part].push(fresh.length === b.ok.length ? b : { ...b, ok: fresh });
+  }
+  return queues;
+}
+
+const blockItems = (blocks) => blocks.flatMap((b) => b.ok.map((q) => makeItem(q)));
+
+// Аудио-блок: часть, которой не было в прошлом занятии (сначала P3); нет новых — другая; нет обеих — null.
+function takeAudio(state, queues) {
+  const order = state.lastAudio === 'p3' ? ['p4', 'p3'] : AUDIO_PARTS;
+  const part = order.find((p) => queues[p].length);
+  if (!part) return null;
+  state.lastAudio = part;
+  return { part, items: blockItems(queues[part].splice(0, 1)) };
+}
+
+function buildLesson(state, bank, day, rng) {
+  const groups = dueGroups(state, bank, day);
+  const queues = newBlockQueues(state, bank);
+  if (!groups.length && PARTS.every((p) => !queues[p].length)) return null;
+
+  const audio = takeAudio(state, queues);
+  const audioItems = audio ? audio.items : [];
+  const audioCost = itemsCost(audioItems, bank);
+  const portion = (part) => blockItems(queues[part].slice(0, PORTION_BLOCKS[part]));
+  const takePortion = (part) => blockItems(queues[part].splice(0, PORTION_BLOCKS[part]));
+  const reviewCost = groups.reduce((a, g) => a + g.cost, 0);
+  const portions = [];
+  let reviews;
+
+  if (reviewCost <= REVIEW_LIMIT) {
+    // обычный день: все повторы, остаток бюджета — порции по весу, затем добор до 10 новых
+    reviews = groups;
+    const weights = partWeights(state);
+    let left = BUDGET - reviewCost - audioCost;
+    let fresh = audioItems.length;
+    const pick = (fits) => pickWeighted(NEW_PARTS.filter((p) => queues[p].length && fits(p)),
+      (p) => weights[p] / portion(p).length, rng);
+    for (let p; (p = pick((x) => itemsCost(portion(x), bank) <= left));) {
+      const items = takePortion(p);
+      left -= itemsCost(items, bank);
+      fresh += items.length;
+      portions.push(items);
+    }
+    for (let p; fresh < MIN_NEW && (p = pick(() => true));) {
+      const items = takePortion(p);
+      fresh += items.length;
+      portions.push(items);
+    }
+  } else {
+    // просрочка: аудио + одна порция самой слабой части, остальное время — повторы по сроку
+    const weakest = NEW_PARTS.filter((p) => queues[p].length)
+      .sort((a, b) => accuracy(state, a) - accuracy(state, b) || EXAM_SHARE[b] - EXAM_SHARE[a])[0];
+    if (weakest) portions.push(takePortion(weakest));
+    let left = BUDGET - audioCost - portions.reduce((a, items) => a + itemsCost(items, bank), 0);
+    reviews = [];
+    for (const g of groups) {
+      if (g.cost > left) continue;               // не влезла — пропустить, идти дальше
+      reviews.push(g);
+      left -= g.cost;
+    }
+  }
+  const items = [...reviews.flatMap((g) => g.items), ...audioItems, ...portions.flat()];
+  // остаток блока, у которого сегодня и повтор, — сразу за повтором: блок идёт подряд (звук блока в сессии один)
+  const at = new Map();
+  for (const it of items) if (!at.has(bank.q[it.q].block)) at.set(bank.q[it.q].block, at.size);
+  items.sort((x, y) => at.get(bank.q[x.q].block) - at.get(bank.q[y.q].block));
+  return { kind: 'lesson', day, audio: audio ? audio.part : null, items, pos: 0 };
+}
+
+// Выбор кандидата с вероятностью ∝ weightOf; кандидатов нет — null.
+function pickWeighted(candidates, weightOf, rng) {
+  if (!candidates.length) return null;
+  const weights = candidates.map(weightOf);
+  let x = rng() * weights.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < candidates.length; i++) {
+    x -= weights[i];
+    if (x < 0) return candidates[i];
+  }
+  return candidates[candidates.length - 1];
+}
+
+// Увиденные ok-вопросы (порядок банка): сначала неверные с первого раза, затем верные, внутри — rng.
+function seenWrongFirst(state, blocks, rng) {
+  const seen = blocks.flatMap((b) => b.ok).filter((q) => q in state.first);
+  return [
+    ...shuffle(seen.filter((q) => state.first[q] === 0), rng),
+    ...shuffle(seen.filter((q) => state.first[q] !== 0), rng),
+  ];
+}
+
+// «ทบทวน»: 10 увиденных ok-вопросов всех пулов, пункты сгруппированы по блокам (§6.2 п. 5).
+function buildRevise(state, bank, day, rng) {
+  const chosen = seenWrongFirst(state, bank.blocks, rng).slice(0, REVISE_SIZE);
+  if (!chosen.length) return null;
+  const byBlock = new Map();
+  for (const q of chosen) {
+    const b = bank.q[q].block;
+    if (!byBlock.has(b)) byBlock.set(b, []);
+    byBlock.get(b).push(q);
+  }
+  const items = [...byBlock.values()].flat().map((q) => makeItem(q));
+  return { kind: 'revise', day, items, pos: 0 };
+}
+
+// ── Свободная практика §6.3 ────────────────────────────────────────────────────────────────────────
+
+// Увиденные вопросы части (все пулы) целыми блоками, сначала с ошибкой; увиденных нет — новые блоки.
+function startPractice(state, bank, part, day, rng, size = 10) {
+  const blocks = bank.blocks.filter((b) => b.part === part && b.ok.length);
+  const seen = seenWrongFirst(state, blocks, rng);
+  const source = seen.length
+    ? seen.map((q) => bank.block[bank.q[q].block])
+    : blocks.filter((b) => b.pool !== DIAG);    // никто не увиден → все блоки пулов практики новые
+  const taken = new Set();
+  const items = [];
+  for (const b of source) {
+    if (items.length >= size) break;
+    if (taken.has(b.id)) continue;
+    taken.add(b.id);
+    items.push(...b.ok.map((q) => makeItem(q)));
+  }
+  if (!items.length) return null;
+  state.practice = { kind: 'practice', day, part, items, pos: 0 };
+  return state.practice;
+}
+
+// ── Серия дней §6.5, отметки ───────────────────────────────────────────────────────────────────────
+
+function creditDay(state, day) {
+  const st = state.streak;
+  if (st.last !== null && day <= st.last) return;   // тот же день или часы переведены назад
+  st.cur = st.last !== null && day === st.last + 1 ? st.cur + 1 : 1;
+  st.last = day;
+  st.best = Math.max(st.best, st.cur);
+}
+
+// Серия жива, если последний засчитанный день — сегодня или вчера.
+function streakNow(state, today) {
+  const { cur, last } = state.streak;
+  return last !== null && today - last <= 1 ? cur : 0;
+}
+
+// Отметка «есть ошибка»: одна на вопрос (повтор — заменить и в конец), не больше 50.
+function flag(state, qkey, reason) {
+  state.flags = state.flags.filter(([k]) => k !== qkey);
+  state.flags.push([qkey, reason]);
+  if (state.flags.length > FLAGS_MAX) state.flags.splice(0, state.flags.length - FLAGS_MAX);
+}
+
+// ── Оценка балла §6.7, прогресс ────────────────────────────────────────────────────────────────────
+
+const SCALE_PCT = [0, 25, 40, 50, 60, 70, 80, 90, 100];
+const SCALE = {
+  L: [5, 60, 150, 215, 280, 345, 400, 460, 495],
+  R: [5, 40, 120, 180, 245, 310, 375, 440, 495],
+};
+const SECTION_PARTS = { L: ['p1', 'p2', 'p3', 'p4'], R: ['p5', 'p6', 'p7'] };
+
+function interpolate(points, pct) {
+  for (let i = 1; i < SCALE_PCT.length; i++) {
+    if (pct <= SCALE_PCT[i]) {
+      const x0 = SCALE_PCT[i - 1];
+      return points[i - 1] + ((pct - x0) * (points[i] - points[i - 1])) / (SCALE_PCT[i] - x0);
+    }
+  }
+  return points[points.length - 1];
+}
+
+function sectionScore(tests, section, spread) {
+  let right = 0;
+  let total = 0;
+  for (const p of SECTION_PARTS[section]) {
+    if (!tests[p]) continue;
+    right += tests[p][0];
+    total += tests[p][1];
+  }
+  if (!total) return null;
+  const pct = (right * 100) / total;
+  const mid = Math.round(interpolate(SCALE[section], pct) / 5) * 5;
+  return { pct: Math.round(pct), mid, lo: Math.max(5, mid - spread), hi: Math.min(495, mid + spread) };
+}
+
+function scoreRange(tests, spread = 75) {
+  const L = sectionScore(tests, 'L', spread);
+  const R = sectionScore(tests, 'R', spread);
+  return { L, R, total: L && R ? { lo: L.lo + R.lo, hi: L.hi + R.hi } : null };
+}
+
+// Увиденные и точность первых ответов по частям; только пулы практики и ok-вопросы.
+function progress(state, bank) {
+  const acc = Object.fromEntries(PARTS.map((p) => [p, { seen: 0, total: 0, right: 0 }]));
+  for (const b of bank.blocks) {
+    if (b.pool === DIAG) continue;
+    for (const q of b.ok) {
+      const x = acc[b.part];
+      x.total++;
+      if (q in state.first) {
+        x.seen++;
+        x.right += state.first[q];
+      }
+    }
+  }
+  return Object.fromEntries(PARTS.map((p) => {
+    const { seen, total, right } = acc[p];
+    return [p, { seen, total, acc: seen ? right / seen : null }];
+  }));
+}
+
+// ── Код прогресса §6.8 ─────────────────────────────────────────────────────────────────────────────
+// T1.<base64url без '='>.<CRC32 байтов, 8 hex>. Числа big-endian, битовые карты — старший бит первым,
+// varint — беззнаковый LEB128 (7 бит на байт, младшие первыми, бит 7 — продолжение). Раскладка — LOGIC_API.md.
+
+const CODE_VERSION = 1;
+const CODE_RE = /^T(\d+)\.([A-Za-z0-9_-]+)\.([0-9a-f]{8})$/;
+const NO_DAY = 0xffff;
+
+const CRC_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+
+// CRC-32 IEEE, как zlib.crc32.
+function crc32(bytes) {
+  let c = 0xffffffff;
+  for (const b of bytes) c = CRC_TABLE[(c ^ b) & 255] ^ (c >>> 8);
+  return (c ^ 0xffffffff) >>> 0;
+}
+
+const hex8 = (x) => (x >>> 0).toString(16).padStart(8, '0');
+const clampByte = (x) => Math.max(0, Math.min(255, x | 0));
+
+function toBase64url(bytes) {
+  let bin = '';
+  for (const b of bytes) bin += String.fromCharCode(b);
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function fromBase64url(text) {
+  try {
+    const bin = atob(text.replace(/-/g, '+').replace(/_/g, '/'));
+    return Uint8Array.from(bin, (ch) => ch.charCodeAt(0));
+  } catch {
+    return null;
+  }
+}
+
+// Пул ↔ индекс в коде: diag → 0, bNN → NN (1…15; отметка хранит 4 бита пула).
+function poolIndex(pool) {
+  if (pool === DIAG) return 0;
+  const m = /^b(\d\d)$/.exec(pool);
+  const i = m ? Number(m[1]) : 0;
+  if (i < 1 || i > 15) throw new Error(`пул ${pool} не помещается в код прогресса (§6.8)`);
+  return i;
+}
+const poolName = (i) => (i === 0 ? DIAG : `b${String(i).padStart(2, '0')}`);
+
+function splitKey(qkey) {
+  const i = qkey.lastIndexOf(':');
+  return { pool: qkey.slice(0, i), n: Number(qkey.slice(i + 1)) };
+}
+
+class ByteWriter {
+  constructor() { this.out = []; }
+  u8(x) { this.out.push(x & 255); }
+  u16(x) { this.u8(x >>> 8); this.u8(x); }
+  u32(x) { this.u16(x >>> 16); this.u16(x & 0xffff); }
+  bytes(arr) { for (const b of arr) this.u8(b); }
+  varint(x) {
+    while (x >= 128) { this.u8((x & 127) | 128); x = Math.floor(x / 128); }
+    this.u8(x);
+  }
+}
+
+class ByteReader {
+  constructor(bytes) { this.b = bytes; this.i = 0; }
+  u8() {
+    if (this.i >= this.b.length) throw new Error('код короче ожидаемого');
+    return this.b[this.i++];
+  }
+  u16() { return (this.u8() << 8) | this.u8(); }
+  u32() { return ((this.u16() << 16) | this.u16()) >>> 0; }
+  bytes(n) { return Array.from({ length: n }, () => this.u8()); }
+  varint() {
+    let x = 0;
+    for (let mul = 1; ; mul *= 128) {
+      const b = this.u8();
+      x += (b & 127) * mul;
+      if (b < 128) return x;
+      if (mul > 2 ** 28) throw new Error('varint слишком длинный');
+    }
+  }
+  done() { return this.i === this.b.length; }
+}
+
+// Пулы кода: есть в builds или встречаются в first/rev/flags; maxN — наибольший n среди этих полей.
+function codePools(state) {
+  const maxN = new Map(Object.keys(state.builds).map((p) => [p, 0]));
+  const see = (qkey) => {
+    const { pool, n } = splitKey(qkey);
+    maxN.set(pool, Math.max(maxN.get(pool) || 0, n));
+  };
+  Object.keys(state.first).forEach(see);
+  Object.keys(state.rev).forEach(see);
+  state.flags.forEach(([q]) => see(q));
+  return [...maxN].map(([pool, n]) => ({ pool, idx: poolIndex(pool), maxN: n })).sort((a, b) => a.idx - b.idx);
+}
+
+function writePool(w, state, { pool, idx, maxN }, day) {
+  w.u8(idx);
+  w.u8(state.builds[pool] || 0);                       // 0 — пула нет в builds
+  w.u16(maxN);
+  const seen = new Uint8Array(Math.ceil(maxN / 8));
+  const right = new Uint8Array(seen.length);
+  const revs = [];
+  for (let n = 1; n <= maxN; n++) {
+    const key = `${pool}:${n}`;
+    const bit = 0x80 >> ((n - 1) % 8);
+    if (key in state.first) seen[(n - 1) >> 3] |= bit;
+    if (state.first[key] === 1) right[(n - 1) >> 3] |= bit;
+    if (state.rev[key]) revs.push(n);
+  }
+  w.bytes(seen);
+  w.bytes(right);
+  w.varint(revs.length);
+  let prev = 0;
+  for (const n of revs) {
+    const r = state.rev[`${pool}:${n}`];
+    const rel = Math.max(0, Math.min(63, r.d - day + 31));   // сильнее просроченное прижимается к −31
+    w.varint(n - prev);
+    w.u8((r.s ? 0x80 : 0) | (rel << 1));
+    prev = n;
+  }
+}
+
+// Окно части: 30 бит старые→новые со старшего бита + длина.
+function writeWindow(w, win) {
+  const last = win.slice(-WIN_MAX);
+  let v = 0;
+  last.forEach((x, i) => { if (x) v |= 1 << (31 - i); });
+  w.u32(v >>> 0);
+  w.u8(last.length);
+}
+
+function encodeCode(state, day) {
+  const w = new ByteWriter();
+  w.u8(CODE_VERSION);
+  w.u16(day);
+  const pools = codePools(state);
+  w.u8(pools.length);
+  for (const p of pools) writePool(w, state, p, day);
+  for (const part of PARTS) writeWindow(w, state.win[part] || []);
+  for (const part of PARTS) {
+    const [right, total] = state.tests[part] || [0, 0];
+    w.u8(right);
+    w.u8(total);
+  }
+  const { cur, best, last } = state.streak;
+  w.u8(clampByte(cur));
+  w.u8(clampByte(best));
+  w.u16(last === null ? NO_DAY : last);
+  const log = state.log.slice(-LOG_MAX);
+  w.u8(log.length);
+  for (const [d, n, ok] of log) {
+    w.u16(d);
+    w.u8(clampByte(n));
+    w.u8(clampByte(ok));
+  }
+  const flags = state.flags.slice(-FLAGS_MAX);
+  w.u8(flags.length);
+  for (const [q, reason] of flags) {
+    const { pool, n } = splitKey(q);
+    if (n > 0xfff) throw new Error(`номер ${q} не помещается в отметку (§6.8)`);
+    w.u16((poolIndex(pool) << 12) | n);
+    w.u8(reason);
+  }
+  const bytes = Uint8Array.from(w.out);
+  return `T${CODE_VERSION}.${toBase64url(bytes)}.${hex8(crc32(bytes))}`;
+}
+
+function readPool(r, st, day) {
+  const pool = poolName(r.u8());
+  const build = r.u8();
+  const maxN = r.u16();
+  if (build) st.builds[pool] = build;
+  const seen = r.bytes(Math.ceil(maxN / 8));
+  const right = r.bytes(seen.length);
+  for (let n = 1; n <= maxN; n++) {
+    const bit = 0x80 >> ((n - 1) % 8);
+    if (seen[(n - 1) >> 3] & bit) st.first[`${pool}:${n}`] = right[(n - 1) >> 3] & bit ? 1 : 0;
+  }
+  let n = 0;
+  for (let k = r.varint(); k > 0; k--) {
+    n += r.varint();
+    const b = r.u8();
+    st.rev[`${pool}:${n}`] = { s: b >> 7, d: day + ((b >> 1) & 63) - 31 };
+  }
+}
+
+function readState(bytes) {
+  const r = new ByteReader(bytes);
+  const st = emptyState();
+  r.u8();                                            // версия проверена до разбора
+  const day = r.u16();
+  for (let k = r.u8(); k > 0; k--) readPool(r, st, day);
+  for (const part of PARTS) {
+    const v = r.u32();
+    const len = r.u8();
+    if (len > WIN_MAX) throw new Error('окно длиннее 30');
+    st.win[part] = Array.from({ length: len }, (_, i) => (v >>> (31 - i)) & 1);
+  }
+  for (const part of PARTS) {
+    const right = r.u8();
+    const total = r.u8();
+    if (total) st.tests[part] = [right, total];
+  }
+  const cur = r.u8();
+  const best = r.u8();
+  const last = r.u16();
+  st.streak = { cur, best, last: last === NO_DAY ? null : last };
+  const nLog = r.u8();
+  if (nLog > LOG_MAX) throw new Error('журнал длиннее 60');
+  for (let k = 0; k < nLog; k++) st.log.push([r.u16(), r.u8(), r.u8()]);
+  const nFlags = r.u8();
+  if (nFlags > FLAGS_MAX) throw new Error('отметок больше 50');
+  for (let k = 0; k < nFlags; k++) {
+    const v = r.u16();
+    st.flags.push([`${poolName(v >> 12)}:${v & 0xfff}`, r.u8()]);
+  }
+  if (!r.done()) throw new Error('лишние байты в коде');
+  return st;
+}
+
+const fail = (error) => ({ ok: false, error });
+
+// Разбор кода: пробелы и переводы строк игнорируются; чужое состояние не трогается.
+function decodeCode(text) {
+  const m = CODE_RE.exec(String(text).replace(/\s+/g, ''));
+  if (!m) return fail('format');
+  const version = Number(m[1]);
+  if (version !== CODE_VERSION) return fail(version > CODE_VERSION ? 'version' : 'format');
+  const bytes = fromBase64url(m[2]);
+  if (!bytes) return fail('format');
+  if (hex8(crc32(bytes)) !== m[3]) return fail('crc');
+  if (bytes[0] !== CODE_VERSION) return fail('version');
+  try {
+    return { ok: true, state: readState(bytes) };
+  } catch {
+    return fail('format');
+  }
+}
+
+return {PARTS, DIAG, EXAM_SHARE, EXAM_DAY, dayOf, dayDate, daysToExam, makeRng, indexBank, emptyState, reconcile, diagDone, current, next, answer, sessionCost, accuracy, partWeights, startDiag, lesson, startPractice, creditDay, streakNow, flag, scoreRange, progress, crc32, encodeCode, decodeCode};
+})();
+const MANIFEST = JSON.parse(document.getElementById('manifest').textContent);
+// Экраны TOEIC-тренажёра (spec §8, §6.6, §11; макет C «Путь к экзамену»). В области видимости сборки
+// (build_app.py): L — logic.js, MANIFEST — манифест версии. Логика состояния — только через L (LOGIC_API.md).
+// Контракт DOM для e2e — шапка toeic/e2e/e2e.cjs.
+
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const nw = (html) => `<span class="nw">${html}<\/span>`;   // фраза без переноса внутри («6/44», «21 พ.ย.»)
+const KEY = 'toeic-trainer-v1', PREV_KEY = 'toeic-trainer-v1-prev';
+const LET = 'ABCD';
+const PART_TH = { p1: 'รูปภาพ', p2: 'ถาม-ตอบ', p3: 'บทสนทนา', p4: 'พูดคนเดียว', p5: 'เติมคำในประโยค', p6: 'เติมคำในข้อความ', p7: 'อ่านจับใจความ' };
+const PART_EN = { p1: 'Photographs', p2: 'Question–Response', p3: 'Conversations', p4: 'Talks', p5: 'Incomplete Sentences', p6: 'Text Completion', p7: 'Reading' };
+const HINT = {
+  p1: 'ดูภาพ ฟัง 4 ประโยค แล้วเลือกข้อที่ตรงกับภาพที่สุด', p2: 'ฟังคำถามและคำตอบ 3 ข้อ แล้วเลือกคำตอบที่เหมาะสม',
+  p3: 'อ่านคำถามทุกข้อก่อนฟัง แล้วตอบทีละข้อ', p4: 'อ่านคำถามทุกข้อก่อนฟัง แล้วตอบทีละข้อ', p5: 'เลือกคำที่เติมในช่องว่างแล้วประโยคถูกต้อง',
+  p6: 'เลือกคำตอบสำหรับช่องว่างที่มีกรอบสี', p7: 'อ่านข้อความด้านบน แล้วตอบคำถาม',
+};
+const AUDIO_PARTS = ['p1', 'p2', 'p3', 'p4'];
+const REASONS = ['เฉลยไม่ถูกต้อง', 'มีคำตอบที่ถูกได้มากกว่าหนึ่งข้อ', 'เสียงไม่ชัดหรือไม่ตรงกับข้อความ', 'คำอธิบายหรือคำแปลผิด'];
+const WD = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
+const WD_SHORT = ['จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส', 'อา'];
+const MON = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+const SLOT_TH = { diag: 'แบบทดสอบวัดระดับ', lesson: 'บทเรียนวันนี้', revise: 'ทบทวน', practice: 'ฝึกทีละส่วน' };
+const I = {
+  play: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10.4-6.5a1 1 0 0 0 0-1.8L9.5 4.6A1 1 0 0 0 8 5.5z"/><\/svg>',
+  pause: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="5" width="4" height="14" rx="1.2"/><rect x="13.5" y="5" width="4" height="14" rx="1.2"/><\/svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/><\/svg>',
+  close: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/><\/svg>',
+  flag: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/><\/svg>',
+  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20h-5v-6h-6v6H4z"/><\/svg>',
+  list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/><\/svg>',
+  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-7"/><\/svg>',
+  replay: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v4h4"/><\/svg>',
+  back: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16a9 9 0 1 0 2.6-6.4"/><path d="M8.5 4.8v5h5"/><\/svg>',
+};
+
+// ---------------- хранилище ----------------
+let storageOK = true;
+let S = null;                       // {st: состояние logic.js, ui: {audio, intro, codeDay, route, slow}}
+let lastRaw = null;                 // что лежит в хранилище по сведениям этой вкладки; иное значение — запись другой вкладки
+let syncing = false;                // resync() не пишет: иначе две открытые вкладки перекидывались бы записями
+function loadStore() {
+  let data = null;
+  try {
+    const raw = localStorage.getItem(KEY);
+    lastRaw = raw;
+    if (raw) { try { data = JSON.parse(raw); } catch (e) { localStorage.setItem(KEY + '-bad', raw); } }
+  } catch (e) { storageOK = false; }
+  const st = data && data.st && data.st.v === 1 ? data.st : L.emptyState();
+  S = { st, ui: Object.assign({ audio: {}, intro: false, codeDay: null, route: null, slow: false }, data && data.ui) };
+}
+function save() {
+  if (!storageOK || syncing) return;
+  try {
+    const cur = localStorage.getItem(KEY);
+    if (cur !== null && cur !== lastRaw) { setTimeout(resync); return; }   // другая вкладка записала позже — не затирать
+    const raw = JSON.stringify(S);
+    localStorage.setItem(KEY, raw);
+    lastRaw = raw;
+  } catch (e) { storageOK = false; renderBanners(); }
+}
+// Две вкладки (ссылка из чата каждый раз открывает новую): вкладка, вернувшаяся на экран, и первый тап в устаревшей
+// вкладке сначала берут состояние из хранилища — иначе её save() затёр бы прогресс, сделанный в другой вкладке.
+function resync() {
+  if (!storageOK || !bank) return false;
+  let raw;
+  try { raw = localStorage.getItem(KEY); } catch (e) { return false; }
+  if (raw === null || raw === lastRaw) return false;
+  if (newerBuild(raw)) {                              // другая вкладка уже на новой версии: старый банк откатил бы её сверку
+    let last = 0;
+    try { last = +sessionStorage.getItem('toeic-trainer-reload') || 0; sessionStorage.setItem('toeic-trainer-reload', Date.now()); } catch (e) { /* без sessionStorage — одна попытка на загрузку */ }
+    if (Date.now() - last > 10000) location.reload();
+    return false;
+  }
+  qa.playing = false;                                 // без qaSave: он записал бы устаревшее состояние поверх свежего
+  stopQ(); stopR(); closeSheet(true);
+  syncing = true;
+  gen++;                                              // отложенный переход диагностики (250 мс) — по старому состоянию, отменить
+  try { loadStore(); L.reconcile(S.st, bank); route(); } finally { syncing = false; }
+  lockUntil = performance.now() + 400;                // тап в момент перерисовки не попадёт в новый экран
+  if (!document.hidden) toast('อัปเดตความคืบหน้าจากแท็บอื่นแล้ว');
+  return true;
+}
+function newerBuild(raw) {
+  try {
+    const b = JSON.parse(raw).st.builds || {};
+    return Object.keys(b).some((pool) => !bank.pools[pool] || b[pool] > bank.pools[pool].build);
+  } catch (e) { return false; }
+}
+let gen = 0;
+window.addEventListener('storage', (e) => { if (e.key === KEY || e.key === null) resync(); });
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) { resync(); return; }
+  if (qa.playing) qa.el.pause();                      // фоновая вкладка не играет и не пишет позицию раз в секунду; дальше — «ฟังต่อ»
+  if (ra.playing) ra.el.pause();
+});
+window.addEventListener('pageshow', (e) => { if (e.persisted) resync(); });
+
+// ---------------- банк ----------------
+let bank = null;
+const RAW = { blocks: {}, qs: {} };   // блок и вопрос из файлов банка: стимул, варианты, разбор
+async function loadBank() {
+  const files = await Promise.all(MANIFEST.bank.map(async (p) => {
+    const r = await fetch(p);
+    if (!r.ok) throw new Error(p + ': HTTP ' + r.status);
+    return r.json();
+  }));
+  bank = L.indexBank(files);
+  for (const f of files) for (const b of f.blocks) {
+    RAW.blocks[b.id] = b;
+    for (const q of b.questions) RAW.qs[`${f.batch}:${q.n}`] = q;
+  }
+  L.reconcile(S.st, bank);
+  save();
+}
+
+const today = () => L.dayOf(new Date());
+const rng = () => L.makeRng((Date.now() ^ Math.floor(Math.random() * 2147483647)) >>> 0);
+const dateOf = (day) => { const [y, m, d] = L.dayDate(day).split('-').map(Number); return new Date(y, m - 1, d); };
+const mmss = (t) => { t = Math.max(0, Math.round(t || 0)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); };
+const minutes = (sec) => Math.max(1, Math.round(sec / 60));
+const partNo = (p) => p.slice(1);
+const isRight = (it) => it.a !== null && it.a === bank.q[it.q].answer;
+
+// ---------------- навигация ----------------
+let view = { screen: 'loading' };
+let lockUntil = 0;                   // защита от двойного тапа (§11): 400 мс после ответа
+function go(screen, params = {}) {
+  view = Object.assign({ screen }, params);
+  if (screen === 'quiz') {
+    const s = S.st[view.slot];
+    if (!s || !L.next(S.st, view.slot)) { go(view.slot === 'diag' ? 'result' : 'done', { slot: view.slot }); return; }
+  }
+  S.ui.route = screen === 'quiz' || screen === 'review' ? { screen, slot: view.slot, idx: view.idx } : null;
+  save();
+  closeSheet(true);
+  render();
+  window.scrollTo(0, 0);
+  const cur = $('.qs.cur');                         // P3/P4: 2-й и 3-й вопрос блока — докрутить, чтобы варианты не ушли под плеер
+  if (cur && cur.previousElementSibling) {
+    cur.style.scrollMargin = `${$('.qbar').offsetHeight + 12}px 0 ${$('.bottom').offsetHeight + 12}px`;   // панель выше с safe-area и строкой ошибки звука
+    cur.scrollIntoView({ block: 'nearest' });
+  }
+}
+function render() {
+  try {
+    if (qa.key && qa.key !== quizAudioKey()) stopQ();
+    if (view.screen !== 'review') stopR();
+    document.body.dataset.screen = view.screen;
+    $('#app').innerHTML = SCREENS[view.screen]();
+    afterRender();
+  } catch (e) { crash(e); }
+}
+function crash(e) {
+  console.error(e);
+  try { S.ui.route = null; save(); } catch (e2) { /* «ลองอีกครั้ง» откроет главный, а не упавший экран снова */ }
+  view = { screen: 'error', crash: true };
+  document.body.dataset.screen = 'error';
+  $('#app').innerHTML = SCREENS.error();
+}
+function afterRender() {
+  if (view.screen === 'quiz') {
+    const blk = curBlock();
+    if (blk && blk.audio) { loadPack(blk.audio.pack); refreshPlayer(); }
+    const img = $('img.photo');
+    if (img) { img.addEventListener('error', photoFail); if (img.complete && !img.naturalWidth) photoFail(); }
+    const s = S.st[view.slot];                        // заранее — пак следующего аудио-блока
+    const nextAudio = s.items.slice(s.pos + 1).map((it) => RAW.blocks[bank.q[it.q].block]).find((b) => b.audio && b !== blk);
+    if (nextAudio) loadPack(nextAudio.audio.pack);
+    const sc = $('.c-text .scroll');                  // P6/P7: затухание снизу, пока текст не дочитан до конца
+    if (sc) {
+      const more = () => sc.classList.toggle('more', sc.scrollTop + sc.clientHeight < sc.scrollHeight - 4);
+      sc.addEventListener('scroll', more, { passive: true });
+      more();
+      if (document.fonts) document.fonts.ready.then(more);
+    }
+  }
+  if (view.screen === 'review') { const b = reviewBlock(); if (b && b.audio) { loadPack(b.audio.pack); refreshR(); } }
+}
+function photoFail() {                             // фото P1 не загрузилось: подпись и повтор, а не битая картинка
+  const img = $('img.photo');
+  if (img && !$('.ph-err')) img.insertAdjacentHTML('afterend', '<div class="pl-err ph-err"><span>โหลดภาพไม่สำเร็จ<\/span><button class="link" type="button" data-act="photo-retry">ลองอีกครั้ง<\/button><\/div>');
+}
+function toast(text) {
+  const t = $('#toast');
+  t.textContent = text;
+  t.hidden = false;
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => { t.hidden = true; }, 2600);
+}
+
+// ---------------- плашки: LINE и хранилище (§11) ----------------
+const publicUrl = () => MANIFEST.url + (MANIFEST.url.includes('?') ? '&' : '?') + 'openExternalBrowser=1';
+function renderBanners() {
+  const out = [];
+  if (/\bLine\//.test(navigator.userAgent)) {
+    out.push(`<div class="banner" id="banner-line"><span>เปิดอยู่ในแอป LINE ความคืบหน้าอาจหายเมื่อปิด LINE<\/span>
+      <a href="${esc(publicUrl())}" target="_blank" rel="noopener">เปิดในเบราว์เซอร์<\/a><\/div>`);
+  }
+  if (!storageOK) {
+    out.push(`<div class="banner" id="banner-storage">ความคืบหน้าจะไม่ถูกบันทึก เบราว์เซอร์นี้ไม่ให้เก็บข้อมูล คัดลอกรหัสความคืบหน้าไว้ก่อนปิดหน้า<\/div>`);
+  }
+  $('#banners').innerHTML = out.join('');
+}
+
+// ---------------- звук вопроса (§6.6; правка 27.09 — пауза, «ย้อน 5 วิ», полоса и повтор во всех режимах) ----------------
+// Позиция rec.pos сохраняется раз в секунду и при паузе/перемотке: после перезагрузки — «ฟังต่อ» с того же места.
+const packs = {};                    // имя пака → {state: loading|ready|error, buf}
+function loadPack(name) {
+  let p = packs[name];
+  if (p && p.state !== 'error') return p;
+  p = packs[name] = { state: 'loading', buf: null };
+  fetch(MANIFEST.audio[name] || 'audio/' + name)
+    .then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.arrayBuffer(); })
+    .then((buf) => { p.state = 'ready'; p.buf = buf; refreshPlayer(); refreshR(); },
+      (e) => { p.state = 'error'; console.warn('pack', name, e.message); refreshPlayer(); refreshR(); });
+  return p;
+}
+const packUrl = (a) => MANIFEST.audio[a.pack] || 'audio/' + a.pack;
+function setRate(el, rate) { el.defaultPlaybackRate = rate; el.playbackRate = rate; el.preservesPitch = true; el.webkitPreservesPitch = true; }
+
+const qa = { el: new Audio(), key: null, rec: null, audio: null, url: null, path: 'A', playing: false, err: false, t: 0, saved: 0 };
+// Blob-срез однажды не сыграл (не AbortError) → дальше оба плеера сразу идут путём B (пак.mp3#t=a,b) синхронно в тапе:
+// iOS отклоняет play() вне жеста, а запасной путь после отказа среза стартует уже в асинхронном catch.
+let blobBroken = false;
+function quizAudioKey() {
+  if (view.screen !== 'quiz') return null;
+  const blk = curBlock(), s = S.st[view.slot];
+  return blk && blk.audio ? `${s.kind}-${s.day}-${blk.id}` : null;
+}
+function audioRec(key) { return S.ui.audio[key] || null; }
+function newRec(key) { return S.ui.audio[key] || (S.ui.audio[key] = { started: false, pos: 0, ended: false }); }
+function playQ() {
+  const key = quizAudioKey(), blk = curBlock();
+  if (!key) return;
+  const a = blk.audio, p = packs[a.pack];
+  if (!p || p.state !== 'ready') return;
+  if (qa.playing) { if (qa.key === key) qa.el.pause(); return; }   // пауза: позицию сохранит обработчик pause
+  const rec = newRec(key);
+  if (rec.ended) { rec.ended = false; rec.pos = 0; }                // «ฟังอีกครั้ง» — с начала
+  Object.assign(qa, { key, rec, audio: a, err: false, t: rec.pos || 0 });
+  if (blobBroken) { startQB(); refreshPlayer(); return; }
+  const el = qa.el;
+  if (qa.url) URL.revokeObjectURL(qa.url);
+  qa.url = URL.createObjectURL(new Blob([p.buf.slice(a.off, a.off + a.len)], { type: 'audio/mpeg' }));
+  qa.path = 'A';
+  el.src = qa.url;
+  setRate(el, 1);
+  const start = rec.pos || 0;
+  if (start) {
+    try { el.currentTime = start; } catch (e) { /* позиция встанет после метаданных */ }
+    const url = qa.url;                               // после перехода на путь B (#t=a,b) слушатель молчит: там start — от начала пака
+    el.addEventListener('loadedmetadata', () => { if (qa.path === 'A' && el.src === url && Math.abs(el.currentTime - start) > 0.3) el.currentTime = start; }, { once: true });
+  }
+  const pr = el.play();
+  if (pr) pr.catch((e) => { if (e.name !== 'AbortError') qaFail(e); });
+  refreshPlayer();
+}
+// Перемотка вопроса: во время игры — сразу в элементе, иначе — в rec.pos (следующий тап начнёт оттуда).
+function seekQ(t) {
+  const key = quizAudioKey();
+  if (!key) return;
+  const a = curBlock().audio, rec = newRec(key);
+  t = Math.max(0, Math.min(a.t1 - a.t0 - 0.2, t));
+  rec.ended = false;
+  rec.pos = Math.round(t * 10) / 10;
+  if (qa.key === key && qa.playing) {
+    qa.el.currentTime = qa.path === 'B' ? a.t0 + t : t;
+    qa.t = t;
+    qa.saved = performance.now();
+  }
+  save();
+  refreshPlayer();
+}
+function posQ() {
+  const key = quizAudioKey();
+  if (!key) return 0;
+  if (qa.key === key && qa.playing) return qaPos();
+  const rec = audioRec(key), a = curBlock().audio;
+  return rec ? (rec.ended ? a.t1 - a.t0 : rec.pos) : 0;
+}
+function startQB() {
+  const el = qa.el, a = qa.audio;
+  qa.path = 'B';
+  const from = a.t0 + (qa.rec.pos || 0);
+  el.src = packUrl(a) + '#t=' + from.toFixed(3) + ',' + a.t1.toFixed(3);
+  setRate(el, 1);
+  const pr = el.play();
+  if (pr) pr.catch((err) => { if (err.name !== 'AbortError') { qa.err = true; qa.playing = false; refreshPlayer(); } });
+}
+function qaFail(e) {
+  // Blob-срез не сыграл → запасной путь пак.mp3#t=a,b (V0), а следующие тапы — сразу он (blobBroken); и он не сыграл →
+  // «ลองอีกครั้ง»
+  if (qa.path === 'A' && qa.audio && !qa.playing) {
+    blobBroken = true;
+    startQB();
+    return;
+  }
+  console.warn('audio', e && (e.message || e.name));
+  qa.err = true;
+  qa.playing = false;
+  refreshPlayer();
+}
+function qaPos() { const el = qa.el; return qa.path === 'B' && qa.audio ? el.currentTime - qa.audio.t0 : el.currentTime; }
+function qaSave(force) {
+  if (!qa.rec) return;
+  const now = performance.now();
+  if (!force && now - qa.saved < 1000) return;
+  qa.saved = now;
+  qa.rec.pos = Math.max(0, Math.round(qaPos() * 10) / 10);
+  save();
+}
+function qaEnded() {
+  if (!qa.rec) return;
+  qa.rec.ended = true;
+  qa.rec.pos = 0;
+  qa.playing = false;
+  save();
+  refreshPlayer();
+}
+(() => {
+  const el = qa.el;
+  el.preload = 'auto';
+  el.addEventListener('playing', () => {
+    if (!qa.rec) return;
+    qa.playing = true;
+    qa.err = false;
+    if (!qa.rec.started) { qa.rec.started = true; qa.rec.pos = Math.round(qaPos() * 10) / 10; qa.saved = performance.now(); save(); }
+    refreshPlayer();
+  });
+  el.addEventListener('timeupdate', () => {
+    if (!qa.rec || !qa.playing) return;
+    qa.t = qaPos();
+    if (qa.path === 'B' && qa.audio && el.currentTime >= qa.audio.t1 - 0.05) { el.pause(); qaEnded(); return; }
+    qaSave(false);
+    refreshPlayer();
+  });
+  el.addEventListener('pause', () => { if (el.ended || !qa.playing) return; qa.playing = false; qaSave(true); refreshPlayer(); });
+  el.addEventListener('ended', qaEnded);
+  el.addEventListener('error', () => { if (qa.rec && el.getAttribute('src')) qaFail(el.error); });
+  window.addEventListener('pagehide', () => { if (qa.playing) qaSave(true); });
+})();
+function stopQ() {
+  if (qa.playing) { qaSave(true); qa.playing = false; }
+  qa.el.pause();
+  qa.key = null;
+  qa.rec = null;
+}
+function playerHTML(role, label) {
+  return `<div class="player" data-role="${role}" data-t="0">
+    <button class="play" type="button" data-act="${role === 'q' ? 'play' : 'replay'}" data-state="loading" aria-label="เล่น"><\/button>
+    <div class="pl-t"><b>${label}<\/b>
+      <div class="scrub off" role="slider" tabindex="0" aria-label="ตำแหน่งเสียง" aria-valuemin="0" aria-valuenow="0"><div class="bar"><i style="width:0%"><\/i><\/div><span class="knob" style="left:0%"><\/span><\/div>
+      <div class="pl-time num"><span>0:00<\/span><span>0:00<\/span><\/div><\/div>
+    <button class="back5" type="button" data-act="back5" aria-label="ย้อน 5 วินาที" disabled>${I.back}<span class="num">5<\/span><\/button><\/div>`;
+}
+function paintPlayer(box, st, t, dur, label) {
+  const btn = $('.play', box), bar = $('.scrub', box);
+  if (btn.dataset.state !== st) {
+    btn.dataset.state = st;
+    btn.disabled = st === 'loading' || st === 'error';
+    $('.back5', box).disabled = btn.disabled;
+    bar.classList.toggle('off', btn.disabled);
+    btn.innerHTML = st === 'playing' ? I.pause : st === 'done' ? I.replay : st === 'loading' ? '' : I.play;
+    btn.setAttribute('aria-label', label);
+    $('b', box).textContent = label;
+    const err = $('.pl-err', box);
+    if (st === 'error' && !err) $('.pl-t', box).insertAdjacentHTML('beforeend', '<div class="pl-err"><span>โหลดเสียงไม่สำเร็จ<\/span><button class="link" type="button" data-act="audio-retry">ลองอีกครั้ง<\/button><\/div>');
+    if (st !== 'error' && err) err.remove();
+  }
+  if (drag && drag.box === box) t = drag.t;           // палец на полосе — показываем место под пальцем
+  const pct = Math.min(100, Math.max(0, (t / dur) * 100)) + '%';
+  box.dataset.t = t.toFixed(2);
+  $('.scrub i', box).style.width = pct;
+  $('.knob', box).style.left = pct;
+  bar.setAttribute('aria-valuemax', Math.round(dur));
+  bar.setAttribute('aria-valuenow', Math.round(t));
+  bar.setAttribute('aria-valuetext', mmss(t));
+  const sp = box.querySelectorAll('.pl-time span');
+  sp[0].textContent = mmss(t);
+  sp[1].textContent = mmss(dur);
+}
+function refreshPlayer() {
+  const box = $('.player[data-role="q"]');
+  const key = quizAudioKey();
+  if (!box || !key) return;
+  const a = curBlock().audio, dur = a.t1 - a.t0, rec = audioRec(key), p = packs[a.pack];
+  let st, label, t = rec ? rec.pos : 0;
+  if (qa.key === key && qa.playing) { st = 'playing'; label = 'แตะเพื่อหยุด'; t = qa.t; }
+  else if (qa.key === key && qa.err) { st = 'error'; label = 'เล่นเสียงไม่ได้'; }
+  else if (!p || p.state === 'loading') { st = 'loading'; label = 'กำลังโหลดเสียง…'; }
+  else if (p.state === 'error') { st = 'error'; label = 'เล่นเสียงไม่ได้'; }
+  else if (rec && rec.ended) { st = 'done'; label = 'ฟังอีกครั้ง'; t = dur; }
+  else if (rec && rec.pos > 0) { st = 'resume'; label = 'แตะเพื่อฟังต่อ'; }
+  else { st = 'ready'; label = 'แตะเพื่อฟัง'; }
+  paintPlayer(box, st, t, dur, label);
+}
+
+// ---------------- звук разбора: те же пауза, перемотка и повтор + 0,75× ----------------
+// Путь B (blobBroken): currentTime — от начала пака, конец клипа — пауза на #t=…,t1 (не ended).
+const ra = { el: new Audio(), url: null, playing: false, t: 0, id: null, path: 'A', a: null, loaded: false, ended: false };
+(() => {
+  const el = ra.el;
+  const atEnd = () => ra.path === 'B' && ra.a && el.currentTime >= ra.a.t1 - 0.05;
+  const end = () => { ra.playing = false; ra.ended = true; ra.t = ra.a ? ra.a.t1 - ra.a.t0 : 0; refreshR(); };
+  el.addEventListener('playing', () => { ra.playing = true; ra.ended = false; refreshR(); });
+  el.addEventListener('pause', () => { if (atEnd()) { end(); return; } ra.playing = false; refreshR(); });
+  el.addEventListener('ended', end);
+  el.addEventListener('timeupdate', () => {
+    if (!ra.a || ra.ended) return;
+    if (atEnd()) { if (!el.paused) el.pause(); return; }   // pause → end()
+    ra.t = ra.path === 'B' ? Math.max(0, el.currentTime - ra.a.t0) : el.currentTime;
+    refreshR();
+  });
+})();
+function stopR() { ra.el.pause(); Object.assign(ra, { playing: false, t: 0, id: null, ended: false }); }
+function seekElR(t) {
+  const el = ra.el, x = ra.path === 'B' ? ra.a.t0 + t : t;
+  try { el.currentTime = x; } catch (e) { /* встанет после метаданных */ }
+  if (el.readyState < 1) {
+    const src = el.src;
+    el.addEventListener('loadedmetadata', () => { if (el.src === src && Math.abs(el.currentTime - x) > 0.3) el.currentTime = x; }, { once: true });
+  }
+}
+function claimR(b) { if (ra.id !== b.id) Object.assign(ra, { id: b.id, a: b.audio, t: 0, ended: false, loaded: false }); }
+function playR() {
+  const b = reviewBlock(), p = b && packs[b.audio.pack];
+  if (!p || p.state !== 'ready') return;
+  const el = ra.el, a = b.audio;
+  if (ra.playing) { el.pause(); return; }
+  claimR(b);
+  if (ra.ended) { ra.ended = false; ra.t = 0; if (ra.loaded) seekElR(0); }
+  if (!ra.loaded || ra.path !== (blobBroken ? 'B' : 'A')) {
+    if (ra.url) { URL.revokeObjectURL(ra.url); ra.url = null; }
+    ra.path = blobBroken ? 'B' : 'A';
+    if (blobBroken) el.src = packUrl(a) + '#t=' + a.t0.toFixed(3) + ',' + a.t1.toFixed(3);
+    else { ra.url = URL.createObjectURL(new Blob([p.buf.slice(a.off, a.off + a.len)], { type: 'audio/mpeg' })); el.src = ra.url; }
+    ra.loaded = true;
+    if (ra.t) seekElR(ra.t);                          // перемотали до первого «เล่น»
+  }
+  setRate(el, S.ui.slow ? 0.75 : 1);
+  const pr = el.play();
+  if (pr) pr.catch((e) => {
+    if (e.name === 'AbortError') return;
+    console.warn('audio', e.name);
+    if (ra.path === 'A') { blobBroken = true; ra.loaded = false; }   // следующий тап — путь B, в жесте
+  });
+}
+function seekR(t) {
+  const b = reviewBlock(), p = b && packs[b.audio.pack];
+  if (!p || p.state !== 'ready') return;
+  claimR(b);
+  ra.t = Math.max(0, Math.min(b.audio.t1 - b.audio.t0 - 0.2, t));
+  ra.ended = false;
+  if (ra.loaded) seekElR(ra.t);                       // ещё не загружен — встанет при первом «เล่น»
+  refreshR();
+}
+function posR() { const b = reviewBlock(); return b && ra.id === b.id ? ra.t : 0; }
+function refreshR() {
+  const box = $('.player[data-role="r"]');
+  const b = view.screen === 'review' && reviewBlock();
+  if (!box || !b || !b.audio) return;
+  const p = packs[b.audio.pack], dur = b.audio.t1 - b.audio.t0, mine = ra.id === b.id;
+  let st, label;
+  if (mine && ra.playing) { st = 'playing'; label = 'แตะเพื่อหยุด'; }
+  else if (!p || p.state === 'loading') { st = 'loading'; label = 'กำลังโหลดเสียง…'; }
+  else if (p.state === 'error') { st = 'error'; label = 'เล่นเสียงไม่ได้'; }
+  else if (mine && ra.ended) { st = 'done'; label = 'ฟังอีกครั้ง'; }
+  else if (mine && ra.t > 0) { st = 'resume'; label = 'แตะเพื่อฟังต่อ'; }
+  else { st = 'ready'; label = 'ฟังอีกครั้ง'; }
+  paintPlayer(box, st, mine ? ra.t : 0, dur, label);
+}
+
+// ---------------- полоса перемотки: тап или протяжка пальцем (pointer events), стрелки с клавиатуры ----------------
+let drag = null;                                      // {box, dur, t, id}: пока палец на полосе, звук не дёргается
+const isQ = (box) => box.dataset.role === 'q';
+function boxDur(box) { const b = isQ(box) ? curBlock() : reviewBlock(); return b && b.audio ? b.audio.t1 - b.audio.t0 : 0; }
+function boxPos(box) { return isQ(box) ? posQ() : posR(); }
+function boxSeek(box, t) { if (isQ(box)) seekQ(t); else seekR(t); }
+function boxPaint(box) { if (isQ(box)) refreshPlayer(); else refreshR(); }
+function scrubT(e) { const r = $('.bar', drag.box).getBoundingClientRect(); return Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * drag.dur; }
+document.addEventListener('pointerdown', (e) => {
+  const bar = e.target.closest('.scrub');
+  if (!bar || bar.classList.contains('off') || e.button > 0 || performance.now() < lockUntil || resync()) return;
+  const box = bar.closest('.player'), dur = boxDur(box);
+  if (!dur) return;
+  e.preventDefault();
+  try { bar.setPointerCapture(e.pointerId); } catch (err) { /* без захвата — протяжка только над полосой */ }
+  drag = { box, dur, t: 0, id: e.pointerId };
+  drag.t = scrubT(e);
+  box.classList.add('drag');
+  boxPaint(box);
+});
+document.addEventListener('pointermove', (e) => {
+  if (!drag || e.pointerId !== drag.id) return;
+  drag.t = scrubT(e);
+  boxPaint(drag.box);
+});
+const dragEnd = (e) => {
+  if (!drag || e.pointerId !== drag.id) return;
+  const { box, t } = drag;
+  drag = null;
+  box.classList.remove('drag');
+  if (!box.isConnected) return;
+  if (e.type === 'pointerup') boxSeek(box, t); else boxPaint(box);
+};
+document.addEventListener('pointerup', dragEnd);
+document.addEventListener('pointercancel', dragEnd);
+document.addEventListener('keydown', (e) => {
+  const bar = e.target.closest && e.target.closest('.scrub');
+  const d = { ArrowLeft: -5, ArrowRight: 5 }[e.key];
+  if (!bar || !d || bar.classList.contains('off')) return;
+  e.preventDefault();
+  const box = bar.closest('.player');
+  boxSeek(box, boxPos(box) + d);
+});
+
+// ---------------- вопрос ----------------
+const session = () => S.st[view.slot];
+function curItem() { const s = session(); return s ? s.items[s.pos] || null : null; }
+function curBlock() { const it = curItem(); return it ? RAW.blocks[bank.q[it.q].block] : null; }
+function reviewItem() { const s = session(); return s ? s.items[view.idx] : null; }
+function reviewBlock() { const it = reviewItem(); return it ? RAW.blocks[bank.q[it.q].block] : null; }
+const sessionName = (s) => (s.kind === 'practice' ? `ฝึก Part ${partNo(s.part)}` : SLOT_TH[s.kind]);
+
+function docHTML(body, fill) {
+  const f = (s) => (fill ? fill(esc(s)) : esc(s));
+  return String(body).split(/\n{2,}/).map((para, i) => {
+    const lines = para.split('\n');
+    if (i === 0 && lines.length >= 2 && lines.every((l) => /^[A-Z][A-Za-z.\- ]{0,18}:\s*\S/.test(l))) {
+      return `<div class="mailh">${lines.map((l) => { const k = l.indexOf(':'); return `<span>${esc(l.slice(0, k))}<\/span><span>${f(l.slice(k + 1).trim())}<\/span>`; }).join('')}<\/div>`;
+    }
+    return `<p>${lines.map(f).join('<br>')}<\/p>`;
+  }).join('');
+}
+function textsHTML(blk, fill) {
+  const texts = blk.texts || [];
+  const tab = Math.min(view.tab || 0, texts.length - 1);
+  const tabs = texts.length > 1 ? `<div class="tabs" role="tablist">${texts.map((t, i) =>
+    `<button type="button" role="tab" data-act="tab" data-i="${i}" aria-selected="${i === tab}" lang="en">${esc(t.label)}<\/button>`).join('')}<\/div>` : '';
+  const one = texts.length === 1 ? `<p class="sec-h" lang="en">${esc(texts[0].label)}<\/p>` : '';
+  return `<section class="c-text"><div class="c-text-in">${tabs}${one}<div class="scroll" tabindex="0"><div class="doc" lang="en">${docHTML(texts[tab].body, fill)}<\/div><\/div><\/div><\/section>`;
+}
+// Тап по варианту только выделяет его (view.pick), засчитывает кнопка «ตอบ» (правка 27.09, все режимы).
+const picked = () => { const it = curItem(); return view.pick && it && view.pick.q === it.q ? view.pick.l : null; };
+function optsHTML(q, part, withText) {
+  const k = part === 'p2' ? 3 : 4, cur = picked();
+  const attrs = (l) => `class="opt${l === cur ? ' sel' : ''}" type="button" data-act="pick" data-letter="${l}" aria-pressed="${l === cur}"`;
+  if (!withText) {
+    return `<ul class="letters ${k === 3 ? 'k3' : ''}">${LET.slice(0, k).split('').map((l) =>
+      `<li><button ${attrs(l)} aria-label="ตัวเลือก ${l}"><span class="bub">${l}<\/span><\/button><\/li>`).join('')}<\/ul>`;
+  }
+  return `<ul class="opts">${q.options.map((o, i) =>
+    `<li><button ${attrs(LET[i])}><span class="bub">${LET[i]}<\/span><span class="t" lang="en">${esc(o)}<\/span><\/button><\/li>`).join('')}<\/ul>`;
+}
+function blockDots(s, idx) {
+  const blockId = bank.q[s.items[idx].q].block;
+  const mine = s.items.map((it, i) => [it, i]).filter(([it]) => bank.q[it.q].block === blockId);
+  if (mine.length < 2) return '';
+  const k = mine.findIndex(([, i]) => i === idx);
+  return `<div class="b-dots">${mine.map(([it, i]) => `<i class="${i === idx ? 'on' : it.a ? 'did' : ''}"><\/i>`).join('')}<span>คำถาม ${k + 1} จาก ${mine.length}<\/span><\/div>`;
+}
+function qbar(title, sub) {
+  return `<div class="qbar"><div class="qbar-in">
+    <button class="ib" type="button" data-act="exit" aria-label="กลับหน้าหลัก">${I.close}<\/button>
+    <div class="ttl"><b>${title}<\/b><span>${sub}<\/span><\/div>
+    <button class="ib" type="button" data-act="flag" aria-label="แจ้งข้อผิดพลาด">${I.flag}<\/button><\/div><\/div>`;
+}
+const partTitle = (p) => `Part ${partNo(p)} · ${PART_TH[p]}`;
+function quizHTML() {
+  const s = session(), it = curItem(), meta = bank.q[it.q], q = RAW.qs[it.q], blk = RAW.blocks[meta.block], part = meta.part;
+  const test = view.slot === 'diag', done = s.items.filter((x) => x.a !== null).length;
+  const left = L.sessionCost({ items: s.items.filter((x) => x.a === null) }, bank);
+  if (view.blockId !== blk.id) { view.blockId = blk.id; view.tab = 0; }
+  const head = qbar(partTitle(part), sessionName(s)) +
+    `<div class="prog"><span class="num">${done}/${s.items.length}<\/span><div class="track"><div class="fill" style="width:${(done / s.items.length) * 100}%"><\/div><\/div><span>ประมาณ ${minutes(left)} นาที<\/span><\/div>`;
+  const dots = blockDots(s, s.pos);
+  const sec = (inner) => `<section class="q" data-q="${it.q}" data-mode="${test ? 'test' : 'learn'}">${inner}
+    <button class="btn pri confirm" type="button" data-act="confirm" ${picked() ? '' : 'disabled'}>ตอบ<\/button><\/section>`;
+  let body;
+  if (part === 'p1' || part === 'p2') {
+    const img = part === 'p1' ? `<img class="photo" src="${esc(MANIFEST.img[blk.photo] || '')}" alt="ภาพสำหรับข้อนี้" width="1000" height="667">` : '';
+    body = `<div class="wrap">${img}<section class="card">${playerHTML('q', '')}<\/section>
+      ${sec(`<p class="hint">${HINT[part]}<\/p>${optsHTML(q, part, false)}`)}<\/div>`;
+  } else if (part === 'p3' || part === 'p4') {
+    // Все вопросы блока из этой сессии видны до записи, плеер под ними (решение владельца 26.09); отвечать — на текущий.
+    const mine = s.items.filter((x) => bank.q[x.q].block === blk.id), many = mine.length > 1;
+    const qs = mine.map((x, k) => {
+      const qq = RAW.qs[x.q], n = many ? `<span class="qn num" aria-hidden="true">${k + 1}<\/span>` : '';
+      if (x === it) return `<li class="qs cur">${sec(`<div class="qs-h">${n}<p class="stem" lang="en">${esc(qq.stem)}<\/p><\/div>${optsHTML(qq, part, true)}`)}<\/li>`;
+      return `<li class="qs${x.a !== null ? ' did' : ''}"><div class="qs-h">${n}<p class="qs-stem" lang="en">${esc(qq.stem)}<\/p>${x.a !== null ? '<span class="qs-tag">ตอบแล้ว<\/span>' : ''}<\/div>
+        <ul class="qs-opts">${qq.options.map((o, i) => `<li><b>${LET[i]}<\/b><span lang="en">${esc(o)}<\/span><\/li>`).join('')}<\/ul><\/li>`;
+    }).join('');
+    body = `<div class="wrap">${many ? `<p class="hint">${HINT[part]}<\/p>` : ''}<ol class="qset">${qs}<\/ol><\/div>
+      <div class="bottom"><div class="bottom-in">${playerHTML('q', '')}<\/div><\/div>`;
+  } else if (part === 'p5') {
+    const stem = esc(q.stem).replace('-------', '<span class="blank cur" aria-label="ช่องว่าง">&nbsp;<\/span>');
+    body = `<div class="wrap">${sec(`<p class="hint">${HINT.p5}<\/p><p class="stem" lang="en">${stem}<\/p>${optsHTML(q, part, true)}`)}<\/div>`;
+  } else {
+    const fill = part === 'p6' ? (html) => html.replace(/\{(\d)\}/g, (m, n) => {
+      const qq = blk.questions.find((x) => x.blank === +n);
+      const cls = qq && qq.id === q.id ? 'cur' : s.items.some((x) => x.a && RAW.qs[x.q] === qq) ? 'did' : '';
+      return `<span class="blank ${cls}">${n}<\/span>`;
+    }) : null;
+    const stem = part === 'p6'
+      ? `<p class="stem">${q.sentence ? `เลือกประโยคสำหรับช่องว่าง ${q.blank}` : `ช่องว่าง ${q.blank}`}<\/p>`
+      : `<p class="stem" lang="en">${esc(q.stem)}<\/p>`;
+    body = `<div class="c-split">${textsHTML(blk, fill)}<div class="wrap" style="padding-top:12px">${dots}
+      ${sec(`${stem}${optsHTML(q, part, true)}`)}<\/div><\/div>`;
+  }
+  return `<div class="screen">${head}${body}<\/div>`;
+}
+
+// ---------------- разбор ----------------
+function transcriptHTML(blk, q) {
+  if (blk.part === 'p1') return q.options.map((o, i) => `<p><span class="spk">${LET[i]}<\/span><span lang="en">${esc(o)}<\/span><\/p>`).join('');
+  if (blk.part === 'p2') {
+    return `<p class="say" lang="en"><b>${esc(q.stem)}<\/b><\/p>` + q.options.map((o, i) => `<p><span class="spk">${LET[i]}<\/span><span lang="en">${esc(o)}<\/span><\/p>`).join('');
+  }
+  return (blk.lines || []).map((l) => `<p><span class="spk" title="${l.s[0] === 'W' ? 'ผู้หญิง' : 'ผู้ชาย'}">${esc(l.s)}<\/span><span lang="en">${esc(l.text)}<\/span><\/p>`).join('');
+}
+function reviewHTML() {
+  const s = session(), it = reviewItem(), meta = bank.q[it.q], q = RAW.qs[it.q], blk = RAW.blocks[meta.block], part = meta.part;
+  const ok = it.a === meta.answer, li = LET.indexOf(it.a), ki = LET.indexOf(meta.answer);
+  const opt = (i) => esc(q.options[i]);
+  const yours = ok
+    ? `<span class="bub r">${meta.answer}<\/span><span class="t" lang="en">${opt(ki)}<small lang="th">คำตอบของคุณ<\/small><\/span>`
+    : `<span class="bub w">${it.a}<\/span><span class="t" lang="en">${opt(li)}<small lang="th">คุณเลือก<\/small><\/span>
+       <span class="bub r">${meta.answer}<\/span><span class="t" lang="en">${opt(ki)}<small lang="th">คำตอบที่ถูก<\/small><\/span>`;
+  const words = (q.words || []).map((w) => `<dt lang="en">${esc(w.en)}<\/dt><dd>${esc(w.th)}<\/dd>`).join('');
+  const audio = AUDIO_PARTS.includes(part) && blk.audio;
+  const txTitle = { p1: 'ประโยคที่ได้ยิน', p2: 'คำถามและคำตอบที่ได้ยิน', p3: 'บทสนทนา', p4: 'สิ่งที่ได้ยิน' }[part];
+  const last = s.items.every((x) => x.a !== null);
+  return `<div class="screen">${qbar(`เฉลย · ข้อ ${view.idx + 1}`, partTitle(part))}
+    <div class="wrap">
+      <div class="verdict ${ok ? 'ok' : 'no'}">${ok ? 'ถูกต้อง' : 'ยังไม่ถูก'}<\/div>
+      <div class="c-yours">${yours}<\/div>
+      ${q.why_th ? `<section class="card stack"><h2 class="sec-h">ทำไม<\/h2><p class="why">${esc(q.why_th)}<\/p><\/section>` : ''}
+      ${words ? `<section class="card stack"><h2 class="sec-h">คำศัพท์<\/h2><dl class="words">${words}<\/dl><\/section>` : ''}
+      ${audio ? `<section class="card stack"><h2 class="sec-h">${txTitle}<\/h2>${playerHTML('r', 'ฟังอีกครั้ง')}
+        <div class="row"><button class="chip-btn" type="button" data-act="slow" aria-pressed="${!!S.ui.slow}">ช้าลง 0.75×<\/button><\/div>
+        <div class="tx">${transcriptHTML(blk, q)}<\/div><\/section>` : ''}
+      <button class="flag" type="button" data-act="flag">${I.flag}แจ้งข้อผิดพลาดในข้อนี้<\/button>
+    <\/div>
+    <div class="bottom"><div class="bottom-in"><button class="btn pri" type="button" data-act="next">${last ? 'ดูสรุป' : 'ข้อถัดไป'}<\/button><\/div><\/div><\/div>`;
+}
+
+// ---------------- главный, практика, прогресс ----------------
+function nav(cur) {
+  return `<nav class="nav" aria-label="เมนู"><div class="nav-in">${[['home', 'วันนี้', I.home], ['practice', 'ฝึกทีละส่วน', I.list], ['progress', 'ความคืบหน้า', I.chart]]
+    .map(([k, l, ic]) => `<button type="button" data-act="nav-${k}" ${k === cur ? 'aria-current="page"' : ''}>${ic}${l}<\/button>`).join('')}<\/div><\/nav>`;
+}
+function appbar(title, right = '') { return `<header class="appbar"><div class="appbar-in"><h1>${title}<\/h1>${right}<\/div><\/header>`; }
+function calendarHTML(day) {
+  const studied = new Set(S.st.log.map((r) => r[0]));
+  const first = Math.min(day, ...S.st.log.map((r) => r[0]));
+  const wdMon = (d) => (dateOf(d).getDay() + 6) % 7;
+  const start = first - wdMon(first), end = L.EXAM_DAY + (6 - wdMon(L.EXAM_DAY));
+  let h = '<span><\/span>' + WD_SHORT.map((w) => `<span class="wd">${w}<\/span>`).join('');
+  let carry = '';                     // 1-е число месяца в первой строке → подпись на следующей строке
+  for (let w = start; w <= end; w += 7) {
+    const ds = [...Array(7)].map((_, i) => w + i);
+    const firstOfMonth = ds.find((d) => dateOf(d).getDate() === 1);
+    const m1 = firstOfMonth !== undefined ? MON[dateOf(firstOfMonth).getMonth()] : '';
+    let mo = w === start ? MON[dateOf(w).getMonth()] : m1 || carry;
+    carry = w === start && m1 && m1 !== mo ? m1 : '';
+    h += `<span class="mo">${mo}<\/span>`;
+    for (const d of ds) {
+      const c = d === L.EXAM_DAY ? 'exam' : [studied.has(d) ? 'done' : d < day ? 'past' : '', d === day ? 'today' : ''].join(' ');
+      h += `<span class="d ${c}">${d === L.EXAM_DAY ? 'สอบ' : dateOf(d).getDate()}<\/span>`;
+    }
+  }
+  return h;
+}
+function lessonCard(day) {
+  if (!L.diagDone(S.st)) {
+    const s = S.st.diag, n = s ? s.items.filter((x) => x.a !== null).length : 0;
+    return `<section class="c-start"><div><b>แบบทดสอบวัดระดับ<\/b><span class="small muted">${nw('40 ข้อ')} · ${nw('ประมาณ 30 นาที')}${n ? ` · ${nw(`ทำไปแล้ว ${n} ข้อ`)}` : ''}<\/span><\/div>
+      <button class="btn pri" type="button" data-act="start-diag">${n ? 'ทำต่อ' : 'เริ่ม'}<\/button><\/section>`;
+  }
+  const s = L.lesson(S.st, bank, day, rng());
+  save();
+  if (!s) {
+    return `<section class="c-start"><div><b>วันนี้ยังไม่มีบทเรียน<\/b><span class="small muted">ทำข้อใหม่ครบแล้ว รอชุดข้อสอบถัดไป ระหว่างนี้ฝึกทีละส่วนได้<\/span><\/div>
+      <button class="btn sec" type="button" data-act="nav-practice">ฝึก<\/button><\/section>`;
+  }
+  const left = s.items.filter((x) => x.a === null);
+  if (!left.length) {
+    const right = s.items.filter(isRight).length;
+    return `<section class="c-start"><div><b>วันนี้เรียนครบแล้ว<\/b><span class="small muted">${nw(`ถูก ${right} จาก ${s.items.length} ข้อ`)} · ${nw('พรุ่งนี้มีบทเรียนใหม่')}<\/span><\/div>
+      <button class="btn sec" type="button" data-act="nav-practice">ฝึกเพิ่ม<\/button><\/section>`;
+  }
+  const count = { audio: 0, rev: 0, neu: 0 };
+  let audioPart = null;
+  for (const it of s.items) {
+    const p = bank.q[it.q].part;
+    if (it.r) count.rev++;
+    else if (p === 'p3' || p === 'p4') { count.audio++; audioPart = p; } else count.neu++;
+  }
+  const mix = [count.audio && `${PART_TH[audioPart]} ${count.audio}`, count.rev && `ทบทวน ${count.rev}`, count.neu && `ใหม่ ${count.neu}`].filter(Boolean).map(nw).join(' · ');
+  const started = left.length < s.items.length;
+  return `<section class="c-start"><div><b>${s.kind === 'revise' ? 'ทบทวนข้อที่เคยทำ' : 'บทเรียนวันนี้'}<\/b>
+    <span class="small muted">${nw(`${s.items.length} ข้อ`)} · ${nw(`ประมาณ ${minutes(L.sessionCost({ items: left }, bank))} นาที`)}${started ? ` · ${nw(`เหลือ ${left.length} ข้อ`)}` : ''}<br>${mix}<\/span><\/div>
+    <button class="btn pri" type="button" data-act="start-lesson">${started ? 'ทำต่อ' : 'เริ่ม'}<\/button><\/section>`;
+}
+function weakParts(minAnswers = 3) {
+  return L.PARTS.filter((p) => (S.st.win[p] || []).length >= minAnswers)
+    .sort((a, b) => L.accuracy(S.st, a) - L.accuracy(S.st, b) || L.EXAM_SHARE[b] - L.EXAM_SHARE[a]).slice(0, 3);
+}
+const listTh = (xs) => (xs.length > 1 ? xs.slice(0, -1).join(', ') + ' และ ' + xs[xs.length - 1] : xs[0] || '');
+function homeHTML() {
+  const day = today(), now = new Date(), streak = L.streakNow(S.st, day), left = L.daysToExam(day);
+  const weak = weakParts();
+  const remind = L.diagDone(S.st) && (S.ui.codeDay == null || day - S.ui.codeDay >= 7);
+  const exam = left > 0 ? `อีก ${left} วันถึงวันสอบ` : left === 0 ? 'วันนี้วันสอบ' : 'สอบแล้ว';
+  return `<div class="screen">${appbar('TOEIC 21.11', `<span class="date">${WD[now.getDay()]} ${now.getDate()} ${MON[now.getMonth()]}<\/span>`)}
+    <div class="wrap">
+      <section class="c-cal"><div class="hdr"><b>${streak ? `เรียนต่อเนื่อง ${streak} วัน` : 'เริ่มนับวันเรียนวันนี้'}<\/b><span class="small muted">${exam}<\/span><\/div>
+        <div class="c-grid" role="img" aria-label="ปฏิทินถึงวันสอบ 21 พ.ย.">${calendarHTML(day)}<\/div>
+        <div class="c-leg"><span><i style="background:var(--accent)"><\/i>เรียนแล้ว<\/span><span><i style="border:2px solid var(--accent)"><\/i>วันนี้<\/span><span><i style="background:var(--warn-bg);border:2px solid var(--warn)"><\/i>วันสอบ<\/span><\/div><\/section>
+      ${lessonCard(day)}
+      ${weak.length ? `<p class="small muted">บทเรียนเน้น ${listTh(weak.map((p) => 'Part ' + partNo(p)))} ซึ่งยังตอบถูกน้อยกว่าส่วนอื่น<\/p>` : ''}
+      ${remind ? `<section class="card stack"><h2 class="sec-h">สำรองรหัสความคืบหน้าไว้ในแชท<\/h2>
+        <p class="small muted">เบราว์เซอร์อาจลบข้อมูลของเว็บที่ไม่ได้เปิดนาน รหัสนี้ใช้กู้ความคืบหน้าคืนได้<\/p>
+        <button class="btn sec" type="button" data-act="open-code">เปิดรหัสความคืบหน้า<\/button><\/section>` : ''}
+    <\/div>${nav('home')}<\/div>`;
+}
+function practiceHTML() {
+  const pr = L.progress(S.st, bank), p = S.st.practice, open = p && p.items.some((x) => x.a === null);
+  const row = (part) => `<div class="prow"><div class="pn"><b>Part ${partNo(part)}<\/b><span>${PART_TH[part]} · ${nw(`ทำแล้ว ${pr[part].seen}/${pr[part].total}`)}<\/span><\/div>
+    <div class="meter" role="img" aria-label="ทำแล้ว ${pr[part].seen} จาก ${pr[part].total}"><i style="width:${pr[part].total ? (pr[part].seen / pr[part].total) * 100 : 0}%"><\/i><\/div>
+    <button class="chip-btn" type="button" data-act="practice-${part}">ฝึก<\/button><\/div>`;
+  return `<div class="screen">${appbar('ฝึกทีละส่วน')}
+    <div class="wrap">
+      <p class="small muted">ฝึกข้อที่เคยทำ โดยเริ่มจากข้อที่เคยตอบผิด การฝึกเพิ่มไม่นับเป็นวันเรียนต่อเนื่อง<\/p>
+      ${open ? `<section class="c-start"><div><b>ฝึก Part ${partNo(p.part)} ค้างไว้<\/b><span class="small muted">เหลือ ${p.items.filter((x) => x.a === null).length} ข้อ<\/span><\/div>
+        <button class="btn pri" type="button" data-act="continue-practice">ทำต่อ<\/button><\/section>` : ''}
+      <section class="card parts"><div class="group-h">ฟัง · Listening<\/div>${['p1', 'p2', 'p3', 'p4'].map(row).join('')}
+        <div class="group-h">อ่าน · Reading<\/div>${['p5', 'p6', 'p7'].map(row).join('')}<\/section>
+    <\/div>${nav('practice')}<\/div>`;
+}
+function rangeHTML(sec, name) {
+  const r = L.scoreRange(S.st.tests)[sec];
+  if (!r) return '';
+  return `<div class="range"><div class="top"><b>${name}<\/b><span class="num">${r.lo}–${r.hi}<\/span><\/div>
+    <div class="scale" role="img" aria-label="${name} ${r.lo} ถึง ${r.hi} จาก 495"><i style="left:${((r.lo - 5) / 490) * 100}%;width:${((r.hi - r.lo) / 490) * 100}%"><\/i><\/div>
+    <div class="scale-ax"><span>5<\/span><span>250<\/span><span>495<\/span><\/div><\/div>`;
+}
+function progressHTML() {
+  const pr = L.progress(S.st, bank), weak = weakParts(), total = S.st.log.reduce((a, r) => a + r[1], 0);
+  const row = (part) => { const x = pr[part], pct = x.acc == null ? null : Math.round(x.acc * 100);
+    return `<div class="prow"><div class="pn"><b>Part ${partNo(part)}<\/b>${weak.includes(part) ? '<span class="weak-tag">ควรฝึก<\/span>' : ''}<span>${PART_TH[part]} · ${nw(`ทำแล้ว ${x.seen}/${x.total}`)}<\/span><\/div>
+      <div class="meter" role="img" aria-label="ถูก ${pct == null ? 'ยังไม่มีข้อมูล' : pct + '%'}"><i style="width:${pct || 0}%"><\/i><\/div><div class="v">${pct == null ? '—' : pct + '%'}<\/div><\/div>`; };
+  const tr = L.scoreRange(S.st.tests);
+  return `<div class="screen">${appbar('ความคืบหน้า')}
+    <div class="wrap">
+      <section class="card stack"><h2 class="sec-h">ตอบถูกครั้งแรก ตามส่วน<\/h2><div class="parts">
+        <div class="group-h">ฟัง · Listening<\/div>${['p1', 'p2', 'p3', 'p4'].map(row).join('')}
+        <div class="group-h">อ่าน · Reading<\/div>${['p5', 'p6', 'p7'].map(row).join('')}<\/div><\/section>
+      ${tr.L || tr.R ? `<section class="card stack"><h2 class="sec-h">คะแนนโดยประมาณจากแบบทดสอบวัดระดับ<\/h2>${rangeHTML('L', 'Listening')}${rangeHTML('R', 'Reading')}
+        <p class="note">ค่าประมาณ ไม่ใช่คะแนนจริง<\/p><\/section>` : ''}
+      <section class="card stack"><p>${nw(`ตอบไปแล้ว <b class="num">${total}<\/b> ข้อ`)} · ${nw(`เรียนต่อเนื่องนานที่สุด <b class="num">${S.st.streak.best}<\/b> วัน`)}<\/p><\/section>
+      <section class="card stack"><h2 class="sec-h">รหัสความคืบหน้า<\/h2>
+        <p class="small muted">ใช้ย้ายความคืบหน้าไปเครื่องหรือเบราว์เซอร์อื่น และกู้คืนถ้าข้อมูลหาย<\/p>
+        <button class="btn sec" type="button" data-act="open-code">เปิดรหัสความคืบหน้า<\/button><\/section>
+      <button class="link" type="button" data-act="open-attrib">ที่มาของภาพ<\/button>
+    <\/div>${nav('progress')}<\/div>`;
+}
+
+// ---------------- первый вход, итоги, код, атрибуция, ошибка ----------------
+function osOf() {
+  const ua = navigator.userAgent;
+  if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) return 'ios';
+  return /Android/.test(ua) ? 'android' : 'other';
+}
+function introHTML() {
+  const steps = {
+    ios: ['วันต่อไปเปิดลิงก์นี้จากแชทเดิม', 'ความคืบหน้าเก็บอยู่ในเครื่องนี้ ไม่ต้องสมัครหรือล็อกอิน', 'สำรองรหัสความคืบหน้าไว้ในแชทเป็นระยะ'],
+    android: ['เปิดลิงก์นี้ใน Chrome', 'แตะเมนู ⋮ แล้วเลือก «เพิ่มลงในหน้าจอหลัก»', 'วันต่อไปเปิดจากไอคอนนั้น ความคืบหน้าจะอยู่ครบ'],
+    other: ['เปิดลิงก์นี้ในเบราว์เซอร์เดิมทุกครั้ง', 'เพิ่มบุ๊กมาร์กไว้', 'ความคืบหน้าเก็บอยู่ในเบราว์เซอร์นี้'],
+  }[osOf()];
+  return `<div class="screen">${appbar('TOEIC 21.11')}
+    <div class="wrap">
+      <div class="hero"><h2>ฝึกวันละ 20 นาที จนถึงวันสอบ ${nw('21 พ.ย.')}<\/h2>
+        <p>เริ่มด้วยแบบทดสอบวัดระดับ 40 ข้อ ครบทั้ง 7 ส่วน ประมาณ 30 นาที แล้วแอปจะจัดบทเรียนแต่ละวันตามส่วนที่ยังอ่อน<\/p><\/div>
+      <section class="card stack"><h2 class="sec-h">เปิดแอปนี้ทุกวันอย่างไร<\/h2><ol class="steps">${steps.map((t) => `<li><span>${t}<\/span><\/li>`).join('')}<\/ol><\/section>
+      <section class="card stack"><h2 class="sec-h">ในแบบทดสอบ<\/h2>
+        <p class="small">แตะตัวเลือกแล้วแตะ «ตอบ» ก่อนแตะ «ตอบ» เปลี่ยนตัวเลือกได้ เสียงหยุด ย้อน และฟังซ้ำได้ ตอบแล้วย้อนกลับไม่ได้ เฉลยจะเห็นในบทเรียนประจำวัน ปิดแอปกลางคันได้ แอปจะทำต่อจากข้อเดิม<\/p><\/section>
+      <button class="link" type="button" data-act="restore">มีรหัสความคืบหน้าแล้ว กู้คืนจากรหัส<\/button>
+    <\/div>
+    <div class="bottom"><div class="bottom-in"><button class="btn pri" type="button" data-act="start-diag">เริ่มแบบทดสอบวัดระดับ<\/button><\/div><\/div><\/div>`;
+}
+function resultHTML() {
+  const t = S.st.tests, sr = L.scoreRange(t);
+  const pct = (p) => (t[p] ? t[p][0] / t[p][1] : 1);
+  const order = L.PARTS.filter((p) => t[p]).sort((a, b) => pct(a) - pct(b) || L.EXAM_SHARE[b] - L.EXAM_SHARE[a]);
+  const weak = order.slice(0, 3), rest = L.PARTS.filter((p) => t[p] && !weak.includes(p));
+  return `<div class="screen">${appbar('ผลการทดสอบวัดระดับ')}
+    <div class="wrap">
+      <section class="card stack">${rangeHTML('L', 'Listening')}${rangeHTML('R', 'Reading')}
+        <p class="note">${sr.total ? `${nw(`รวมประมาณ <b class="num">${sr.total.lo}–${sr.total.hi}<\/b> จาก 990`)} · ` : ''}ค่าประมาณ ไม่ใช่คะแนนจริง<\/p><\/section>
+      <section class="card stack"><h2 class="sec-h">ส่วนที่จะฝึกก่อน<\/h2><div class="parts">
+        ${weak.map((p) => `<div class="prow"><div class="pn"><b>Part ${partNo(p)}<\/b><span>${PART_TH[p]} · <span lang="en">${PART_EN[p]}<\/span><\/span><\/div>
+          <div class="meter" role="img" aria-label="ถูก ${t[p][0]} จาก ${t[p][1]}"><i style="width:${pct(p) * 100}%"><\/i><\/div><div class="v">${t[p][0]}/${t[p][1]}<\/div><\/div>`).join('')}<\/div>
+        ${rest.length ? `<p class="small muted">ส่วนอื่น: ${rest.map((p) => nw(`Part ${partNo(p)} ${t[p][0]}/${t[p][1]}`)).join(' · ')}<\/p>` : ''}<\/section>
+      <section class="card stack"><h2 class="sec-h">เก็บรหัสความคืบหน้าไว้ในแชท<\/h2>
+        <p class="small muted">ถ้าเปลี่ยนเครื่องหรือเบราว์เซอร์ล้างข้อมูล ใช้รหัสนี้กู้ความคืบหน้าคืนได้<\/p>
+        <button class="btn sec" type="button" data-act="copy-code">คัดลอกรหัส<\/button>
+        <textarea id="code-fallback" class="code-box" readonly hidden aria-label="รหัสความคืบหน้า"><\/textarea><\/section>
+    <\/div>
+    <div class="bottom"><div class="bottom-in"><button class="btn pri" type="button" data-act="home">ไปหน้าหลัก<\/button><\/div><\/div><\/div>`;
+}
+function doneHTML() {
+  const s = session(), right = s.items.filter(isRight).length, streak = L.streakNow(S.st, today());
+  const by = {};
+  for (const it of s.items) { const p = bank.q[it.q].part, x = by[p] || (by[p] = [0, 0]); x[0] += isRight(it) ? 1 : 0; x[1]++; }
+  const wrong = s.items.length - right;
+  return `<div class="screen">${appbar(s.kind === 'practice' ? 'ฝึกเสร็จแล้ว' : 'เสร็จแล้ว')}
+    <div class="wrap">
+      <section class="card stack"><p><span class="big-n">${right}/${s.items.length}<\/span><\/p><p class="muted">ตอบถูกในครั้งนี้<\/p>
+        ${s.kind !== 'practice' ? `<p>${nw(`เรียนต่อเนื่อง <b class="num">${streak}<\/b> วัน`)} · ${nw('พรุ่งนี้มีบทเรียนใหม่')}<\/p>` : ''}<\/section>
+      <section class="card stack"><h2 class="sec-h">ตามส่วน<\/h2><div class="parts">${L.PARTS.filter((p) => by[p]).map((p) =>
+        `<div class="prow"><div class="pn"><b>Part ${partNo(p)}<\/b><span>${PART_TH[p]}<\/span><\/div>
+          <div class="meter" role="img" aria-label="ถูก ${by[p][0]} จาก ${by[p][1]}"><i style="width:${(by[p][0] / by[p][1]) * 100}%"><\/i><\/div><div class="v">${by[p][0]}/${by[p][1]}<\/div><\/div>`).join('')}<\/div><\/section>
+      ${wrong ? `<p class="small muted">ข้อที่ตอบผิดครั้งแรก จะกลับมาให้ทบทวนพรุ่งนี้ และอีกครั้งหลังจากนั้น 7 วัน<\/p>` : ''}
+    <\/div>
+    <div class="bottom"><div class="bottom-in"><button class="btn pri" type="button" data-act="home">กลับหน้าหลัก<\/button><\/div><\/div><\/div>`;
+}
+const CODE_ERR = {
+  format: 'รหัสไม่ครบหรือผิดรูปแบบ ลองคัดลอกใหม่ทั้งหมดจากแชท',
+  crc: 'รหัสเสียหาย มีตัวอักษรหายหรือเกิน ลองคัดลอกใหม่ทั้งหมด',
+  version: 'รหัสนี้มาจากแอปรุ่นใหม่กว่า เปิดลิงก์ล่าสุดของแอปแล้วลองอีกครั้ง',
+};
+function codeHTML() {
+  const has = Object.keys(S.st.first).length > 0;
+  const code = has ? L.encodeCode(S.st, today()) : '';
+  const p = view.pending;
+  const summary = p ? `ในรหัส: ${nw(`ทำไปแล้ว ${Object.keys(p.first).length} ข้อ`)} · ${nw(`เรียนต่อเนื่องนานที่สุด ${p.streak.best} วัน`)}${p.log.length ? ` · ${nw(`เรียนล่าสุด ${dateOf(p.log[p.log.length - 1][0]).getDate()} ${MON[dateOf(p.log[p.log.length - 1][0]).getMonth()]}`)}` : ''}` : '';
+  return `<div class="screen"><div class="qbar"><div class="qbar-in">
+      <button class="ib" type="button" data-act="back" aria-label="กลับ">${I.close}<\/button><div class="ttl"><b>รหัสความคืบหน้า<\/b><span>สำรองและกู้คืน<\/span><\/div><span><\/span><\/div><\/div>
+    <div class="wrap">
+      ${has ? `<section class="card stack"><h2 class="sec-h">รหัสของคุณ<\/h2>
+        <p class="small muted">รหัสนี้มีความคืบหน้าทั้งหมด ส่งเก็บไว้ในแชทของตัวเอง แล้วใช้กู้คืนเมื่อเปลี่ยนเครื่องหรือเบราว์เซอร์<\/p>
+        <textarea id="code-out" class="code-box" readonly aria-label="รหัสความคืบหน้า">${esc(code)}<\/textarea>
+        <button class="btn pri" type="button" data-act="copy-code">คัดลอกรหัส<\/button><\/section>` : ''}
+      <section class="card stack"><h2 class="sec-h">กู้คืนจากรหัส<\/h2>
+        <p class="small muted">วางรหัสที่คัดลอกไว้ ความคืบหน้าในเครื่องนี้จะถูกแทนที่ทั้งหมด (ของเดิมจะเก็บสำรองไว้)<\/p>
+        <textarea id="code-in" class="code-box" aria-label="วางรหัสที่นี่" placeholder="T1.…">${esc(view.input || '')}<\/textarea>
+        <p id="code-err" class="msg-err" ${view.err ? '' : 'hidden'}>${esc(CODE_ERR[view.err] || '')}<\/p>
+        ${p ? `<p class="msg-ok">${summary}<\/p>
+          <button class="btn pri" type="button" data-act="restore-confirm">แทนที่ความคืบหน้าในเครื่องนี้<\/button>
+          <button class="btn sec" type="button" data-act="restore-cancel">ยกเลิก<\/button>`
+    : '<button class="btn sec" type="button" data-act="restore-check">ตรวจรหัส<\/button>'}<\/section>
+    <\/div><\/div>`;
+}
+function attribHTML() {
+  const list = MANIFEST.attrib || [];
+  return `<div class="screen"><div class="qbar"><div class="qbar-in">
+      <button class="ib" type="button" data-act="back" aria-label="กลับ">${I.close}<\/button><div class="ttl"><b>ที่มาของภาพ<\/b><span>Part 1<\/span><\/div><span><\/span><\/div><\/div>
+    <div class="wrap"><p class="small muted">ภาพใน Part 1 มาจาก Wikimedia Commons ใช้ตามสัญญาอนุญาตของเจ้าของภาพ ทุกภาพถูกย่อขนาดและบีบอัด<\/p>
+      <ul class="attrib">${list.map((a) => `<li><img src="${esc(MANIFEST.img[a.file] || '')}" alt="" loading="lazy" width="72" height="48">
+        <div><b lang="en">${esc(String(a.title || a.file).replace(/^File:/, '').replace(/\.[a-z]+$/i, ''))}<\/b><br>
+        ผู้สร้าง: <span lang="en">${esc(a.author)}<\/span><br>
+        สัญญาอนุญาต: <a href="${esc(a.license_url || '')}" target="_blank" rel="noopener">${esc(a.license)}<\/a> ·
+        <a href="${esc(a.source)}" target="_blank" rel="noopener">ต้นฉบับ<\/a><\/div><\/li>`).join('')}<\/ul><\/div><\/div>`;
+}
+function errorHTML() {
+  return `<div class="screen">${appbar('TOEIC 21.11')}
+    <div class="wrap"><section class="card stack"><h2 class="sec-h">${view.crash ? 'หน้านี้มีปัญหา' : 'โหลดไม่สำเร็จ'}<\/h2>
+      <p>${view.crash ? `ความคืบหน้ายังอยู่ครบ ${nw('แตะลองอีกครั้ง')}เพื่อเปิดหน้าใหม่` : `ตรวจการเชื่อมต่ออินเทอร์เน็ต แล้ว${nw('แตะลองอีกครั้ง')}`}<\/p>
+      <button class="btn pri" type="button" data-act="retry-load">ลองอีกครั้ง<\/button><\/section><\/div><\/div>`;
+}
+const SCREENS = {
+  loading: () => '<div class="wrap"><p class="muted">กำลังโหลด…<\/p><\/div>',
+  intro: introHTML, home: homeHTML, practice: practiceHTML, progress: progressHTML, quiz: quizHTML, review: reviewHTML,
+  done: doneHTML, result: resultHTML, code: codeHTML, attrib: attribHTML, error: errorHTML,
+};
+
+// ---------------- шторка «есть ошибка» (закрывается кнопкой «Назад» через history) ----------------
+let sheetOpen = false;
+function flagTarget() {
+  if (view.screen === 'review') return reviewItem().q;
+  if (view.screen === 'quiz') return curItem().q;
+  return null;
+}
+function openSheet() {
+  const qk = flagTarget();
+  if (!qk) return;
+  sheetOpen = { qk, reason: null };
+  clearTimeout(toast.timer); $('#toast').hidden = true;   // всплывашка лежит выше шторки и закрыла бы «บันทึก»
+  history.pushState({ sheet: 1 }, '');
+  paintSheet();
+}
+function paintSheet() {
+  $('#sheet-root').innerHTML = `<div class="shade" data-act="flag-cancel"><\/div>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h"><div class="sheet-in"><div class="handle"><\/div>
+      <h2 id="sheet-h" class="sec-h">แจ้งข้อผิดพลาดในข้อนี้<\/h2>
+      <p class="small muted">เลือกสิ่งที่ผิด แอปจะเก็บไว้ในรหัสความคืบหน้า เพื่อแก้ในชุดข้อสอบถัดไป<\/p>
+      <div class="reasons">${REASONS.map((r, i) => `<button type="button" data-act="reason" data-reason="${i}" aria-pressed="${sheetOpen.reason === i}">${r}<\/button>`).join('')}<\/div>
+      <button class="btn pri" type="button" data-act="flag-send" ${sheetOpen.reason == null ? 'disabled' : ''}>บันทึก<\/button>
+      <button class="btn sec" type="button" data-act="flag-cancel">ยกเลิก<\/button><\/div><\/div>`;
+}
+function closeSheet(silent) {
+  if (!sheetOpen) return;
+  sheetOpen = false;
+  $('#sheet-root').innerHTML = '';
+  if (!silent) history.back();
+}
+window.addEventListener('popstate', () => { if (sheetOpen) { sheetOpen = false; $('#sheet-root').innerHTML = ''; } });
+
+// ---------------- код: копирование в обработчике тапа (§6.8) ----------------
+function copyCode(btn) {
+  const code = L.encodeCode(S.st, today());
+  const done = (how) => {
+    if (how) { S.ui.codeDay = today(); save(); toast('คัดลอกรหัสแล้ว วางในแชทได้เลย'); return; }
+    const ta = $('#code-out') || $('#code-fallback');
+    if (ta) { ta.value = code; ta.hidden = false; ta.focus(); ta.select(); }
+    toast('คัดลอกอัตโนมัติไม่ได้ กดค้างที่รหัสแล้วเลือกคัดลอก');
+  };
+  const fallback = () => {
+    const ta = $('#code-out') || $('#code-fallback');
+    let ok = false;
+    if (ta) {
+      ta.value = code; ta.hidden = false; ta.removeAttribute('readonly'); ta.focus(); ta.select(); ta.setSelectionRange(0, code.length);
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      ta.setAttribute('readonly', '');
+    }
+    done(ok);
+  };
+  let p = null;
+  try { p = navigator.clipboard && navigator.clipboard.writeText(code); } catch (e) { p = null; }
+  if (p) p.then(() => done(true), fallback); else fallback();
+}
+
+// ---------------- действия ----------------
+function answer(letter) {
+  const slot = view.slot, s = session(), idx = s.pos;
+  const res = L.answer(S.st, bank, slot, letter);
+  if (!res || res.dup) return;
+  lockUntil = performance.now() + 400;
+  save();
+  const c = $('section.q [data-act="confirm"]');
+  if (c) c.disabled = true;                           // диагностика: вопрос виден ещё 250 мс
+  const g = gen;
+  if (slot === 'diag') setTimeout(() => { if (g === gen) go(res.done ? 'result' : 'quiz', { slot, blockId: view.blockId, tab: view.tab }); }, 250);
+  else go('review', { slot, idx, blockId: view.blockId, tab: view.tab });
+}
+const ACT = {
+  pick: (b) => {
+    const it = curItem();
+    if (!it) return;
+    view.pick = { q: it.q, l: b.dataset.letter };
+    for (const o of document.querySelectorAll('section.q button.opt')) { o.classList.toggle('sel', o === b); o.setAttribute('aria-pressed', o === b); }
+    $('section.q [data-act="confirm"]').disabled = false;
+  },
+  confirm: () => { const l = picked(); if (l) answer(l); },
+  play: () => playQ(),
+  replay: () => playR(),
+  back5: (b) => { const box = b.closest('.player'); boxSeek(box, boxPos(box) - 5); },
+  'audio-retry': () => {
+    const b = view.screen === 'review' ? reviewBlock() : curBlock();
+    if (!b || !b.audio) return;
+    if (qa.key) { qa.err = false; qa.path = 'A'; }
+    delete packs[b.audio.pack];
+    loadPack(b.audio.pack);
+    refreshPlayer(); refreshR();
+  },
+  'photo-retry': () => {
+    const img = $('img.photo'), err = $('.ph-err');
+    if (err) err.remove();
+    if (img) img.src = img.src.split('?')[0] + '?r=' + Date.now();
+  },
+  slow: (b) => { S.ui.slow = !S.ui.slow; save(); b.setAttribute('aria-pressed', S.ui.slow); setRate(ra.el, S.ui.slow ? 0.75 : 1); },
+  tab: (b) => { view.tab = +b.dataset.i; render(); },
+  next: () => go('quiz', { slot: view.slot, blockId: view.blockId, tab: view.tab }),
+  exit: () => go('home'),
+  home: () => go('home'),
+  'nav-home': () => go('home'),
+  'nav-practice': () => go('practice'),
+  'nav-progress': () => go('progress'),
+  'start-diag': () => {
+    S.ui.intro = true;
+    const s = L.startDiag(S.st, bank, today());
+    save();
+    if (!s) { toast('ยังไม่มีแบบทดสอบ ลองเปิดใหม่ภายหลัง'); return; }
+    go('quiz', { slot: 'diag' });
+  },
+  'start-lesson': () => {
+    const s = L.lesson(S.st, bank, today(), rng());
+    save();
+    if (!s) { toast('วันนี้ยังไม่มีบทเรียน'); return; }
+    go('quiz', { slot: 'lesson' });
+  },
+  'continue-practice': () => go('quiz', { slot: 'practice' }),
+  restore: () => go('code', { back: 'intro' }),
+  'open-code': () => go('code', { back: view.screen }),
+  'open-attrib': () => go('attrib', { back: view.screen }),
+  back: () => go(view.back && view.back !== 'code' ? view.back : 'home'),
+  'copy-code': (b) => copyCode(b),
+  'restore-check': () => {
+    const input = $('#code-in').value, r = L.decodeCode(input);
+    view.input = input;
+    view.err = r.ok ? null : r.error;
+    view.pending = r.ok ? r.state : null;
+    render();
+  },
+  'restore-cancel': () => { view.pending = null; view.input = ''; render(); },
+  'restore-confirm': () => {
+    if (!view.pending) return;
+    try { if (storageOK) localStorage.setItem(PREV_KEY, JSON.stringify(S)); } catch (e) { /* место кончилось — замена всё равно по согласию */ }
+    S.st = view.pending;
+    L.reconcile(S.st, bank);
+    Object.assign(S.ui, { audio: {}, intro: true, route: null, codeDay: today() });
+    save();
+    go('home');
+    toast('กู้คืนความคืบหน้าแล้ว');
+  },
+  flag: () => openSheet(),
+  reason: (b) => { sheetOpen.reason = +b.dataset.reason; paintSheet(); },
+  'flag-send': () => {
+    if (!sheetOpen || sheetOpen.reason == null) return;
+    L.flag(S.st, sheetOpen.qk, sheetOpen.reason);
+    save();
+    closeSheet(false);
+    toast('บันทึกแล้ว ขอบคุณ');
+  },
+  'flag-cancel': () => closeSheet(false),
+  'retry-load': () => { if (view.crash) { location.reload(); return; } start(); },
+};
+for (const p of L.PARTS) {
+  ACT['practice-' + p] = () => {
+    for (const k of Object.keys(S.ui.audio)) if (k.startsWith('practice-')) delete S.ui.audio[k];   // новая практика — звук с нуля
+    const s = L.startPractice(S.st, bank, p, today(), rng(), 10);
+    save();
+    if (!s) { toast('ส่วนนี้ยังไม่มีข้อให้ฝึก'); return; }
+    go('quiz', { slot: 'practice' });
+  };
+}
+document.addEventListener('click', (e) => {
+  if (performance.now() < lockUntil && e.target.closest('#app')) { e.preventDefault(); e.stopPropagation(); return; }
+  if (e.target.closest('[data-act]') && resync()) { e.preventDefault(); e.stopPropagation(); return; }
+  const b = e.target.closest('[data-act]');
+  if (!b || b.disabled) return;
+  const fn = ACT[b.dataset.act], was = view.screen;
+  if (!fn) return;
+  try { fn(b, e); } catch (err) { crash(err); }
+  if (view.screen === 'quiz' && was !== 'quiz') lockUntil = performance.now() + 400;   // 2-й тап двойного по «ข้อถัดไป» не ответит
+}, true);
+
+// ---------------- запуск ----------------
+async function start() {
+  view = { screen: 'loading' };
+  render();
+  try { await loadBank(); } catch (e) {
+    console.warn('bank', e.message);
+    view = { screen: 'error' };
+    render();
+    return;
+  }
+  route();
+}
+function route() {
+  const r = S.ui.route, s = r && S.st[r.slot];
+  const alive = s && s.items.some((x) => x.a === null) && !(r.slot === 'lesson' && s.day !== today());
+  if (alive && r.screen === 'review' && s.items[r.idx] && s.items[r.idx].a !== null) go('review', { slot: r.slot, idx: r.idx });
+  else if (alive) go('quiz', { slot: r.slot });
+  else if (!L.diagDone(S.st) && !S.st.diag && !S.ui.intro) go('intro');
+  else go('home');
+}
+loadStore();
+renderBanners();
+start();
+
+})();</script>
+</body>
+</html>
