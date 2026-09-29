@@ -207,13 +207,6 @@ a{color:var(--accent)}
 .prow .v{text-align:right;font:600 .9375rem/1 var(--head);font-variant-numeric:tabular-nums}
 .weak-tag{display:inline-block;margin-left:6px;padding:0 7px;border-radius:999px;background:var(--warn-bg);color:var(--warn);font:500 .75rem/1.6 var(--sans);vertical-align:1px}
 .group-h{font:600 .8125rem/1.3 var(--head);color:var(--ink-3);padding-top:4px}
-.range{display:grid;gap:6px}
-.range .top{display:flex;justify-content:space-between;align-items:baseline}
-.range .top b{font:600 1rem/1.3 var(--head)}
-.range .top .num{font-size:1.375rem;font-weight:700}
-.scale{position:relative;height:12px;border-radius:6px;background:var(--rule)}
-.scale i{position:absolute;top:0;bottom:0;border-radius:6px;background:var(--accent)}
-.scale-ax{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .note{font-size:.875rem;color:var(--ink-3)}
 
 /* ---- главный: путь к экзамену ---- */
@@ -267,6 +260,38 @@ a{color:var(--accent)}
 .reasons button{min-height:52px;text-align:left;padding:10px 14px;border-radius:14px;border:1px solid var(--rule-2);background:var(--card)}
 .reasons button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
 .toast{pointer-events:none;position:fixed;left:16px;right:16px;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:30;max-width:568px;margin:0 auto;padding:12px 16px;border-radius:14px;background:var(--ink);color:var(--paper);font-size:.9375rem;text-align:center}
+/* ---- итог теста и разбор (29.09): верные крупно, список разбора, «ดูเฉลยข้อที่แล้ว» ---- */
+.sc-card{gap:16px}
+.sc-hero{display:grid;gap:2px}
+.sc-hero p{display:flex;align-items:baseline;gap:10px}
+.sc-big{font:700 3.25rem/1.05 var(--head);color:var(--accent)}
+.sc-of{font:600 1.0625rem/1.2 var(--head);color:var(--ink-2)}
+.sc-row{display:grid;gap:6px}
+.sc-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.sc-top b{font:600 1rem/1.3 var(--head)}
+.sc-n .num{font-size:1.5rem;font-weight:700}
+.sc-pc{font:600 1rem/1 var(--head);color:var(--ink-3);margin-left:6px}
+.sc-card .meter{height:10px;border-radius:5px}
+.rv-grp{display:grid;gap:8px}
+.rv-grp .group-h{font-size:.9375rem;color:var(--ink-2)}
+.rv-list{list-style:none;padding:0;display:grid;gap:8px}
+.rv-item{border-radius:18px;border:1px solid var(--rule);background:var(--card)}
+.rv-row{display:grid;grid-template-columns:26px 28px 1fr 20px;gap:10px;align-items:center;padding:12px 12px 12px 10px;list-style:none;cursor:pointer;min-height:52px}
+.rv-row::-webkit-details-marker{display:none}
+.rv-row:focus-visible{outline:3px solid var(--accent);outline-offset:-3px;border-radius:18px}
+.rv-n{font:600 .875rem/1 var(--head);color:var(--ink-3);text-align:right}
+.rv-mk{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:700 .9375rem/1 var(--head)}
+.rv-mk.ok{background:var(--good-bg);color:var(--good)}
+.rv-mk.no{background:var(--crit);color:var(--card)}
+.rv-t{display:grid;gap:2px;min-width:0}
+.rv-s{font:400 .9375rem/1.4 var(--serif);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rv-aud{font-family:var(--sans);color:var(--ink-2)}
+.rv-sub{font-size:.8125rem;color:var(--ink-3)}
+.rv-ch{color:var(--ink-3)}
+.rv-item[open] .rv-ch{transform:rotate(180deg)}
+.rv-body{display:grid;gap:10px;padding:0 14px 14px}
+.peek-bar{width:100%;max-width:600px;margin:0 auto;padding:4px 16px 0}
+.chip-btn.peek{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,var(--rule-2))}
 /* ---- стиль «A · Роза» (29.09): формы и мотив ---- */
 .card,.c-cal,.c-start{border-radius:24px}
 .btn,.opt,.verdict{border-radius:999px}
@@ -289,7 +314,7 @@ body[data-screen="home"] .appbar h1{font-size:1.9rem}
 <div id="app" lang="th"><div class="wrap"><p class="muted">กำลังโหลด…</p></div></div>
 <div id="sheet-root"></div>
 <div id="toast" class="toast" role="status" hidden></div>
-<script id="manifest" type="application/json">{"v": 1, "build": "2026-09-29T03:03:55", "url": "https://sk2flash-rgb.github.io/toeic-trainer/", "bank": ["bank/b01-p1-8328ccdb.json", "bank/b01-p2-ffa52a76.json", "bank/b01-p3-070809c4.json", "bank/b01-p4-00ab2418.json", "bank/b01-p5-33eb74c2.json", "bank/b01-p6-f0c1b9b1.json", "bank/b01-p7-2e7b8f45.json", "bank/diag-a55729cd.json"], "img": {"c01-reception.jpg": "img/c01-reception-65ca6498.jpg", "c06-office.jpg": "img/c06-office-482fbeb7.jpg", "c07-office.jpg": "img/c07-office-10a3ab85.jpg", "c08-office.jpg": "img/c08-office-b117937c.jpg", "c11-clinic.jpg": "img/c11-clinic-70f0641b.jpg", "c12-clinic.jpg": "img/c12-clinic-0ed80ff0.jpg", "c13-clinic.jpg": "img/c13-clinic-ab6ccc4f.jpg", "c15-classroom.jpg": "img/c15-classroom-04fcb542.jpg", "c19-cafe.jpg": "img/c19-cafe-736728e6.jpg", "c23-warehouse.jpg": "img/c23-warehouse-eeca8b5e.jpg", "c10-clinic.jpg": "img/c10-clinic-f68cc946.jpg", "c20-cafe.jpg": "img/c20-cafe-2147aac4.jpg"}, "audio": {"b01-p1-1-8ff2639e.mp3": "audio/b01-p1-1-8ff2639e.mp3", "b01-p2-1-c6ec96c0.mp3": "audio/b01-p2-1-c6ec96c0.mp3", "b01-p2-2-59642517.mp3": "audio/b01-p2-2-59642517.mp3", "b01-p3-1-7188fb6f.mp3": "audio/b01-p3-1-7188fb6f.mp3", "b01-p3-2-b836f79e.mp3": "audio/b01-p3-2-b836f79e.mp3", "b01-p4-1-b6cbafd8.mp3": "audio/b01-p4-1-b6cbafd8.mp3", "b01-p4-2-d62b831f.mp3": "audio/b01-p4-2-d62b831f.mp3", "diag-p1-1-bd7f1fd9.mp3": "audio/diag-p1-1-bd7f1fd9.mp3", "diag-p2-1-0015c510.mp3": "audio/diag-p2-1-0015c510.mp3", "diag-p3-1-b9aeb7c9.mp3": "audio/diag-p3-1-b9aeb7c9.mp3", "diag-p4-1-6c577557.mp3": "audio/diag-p4-1-6c577557.mp3"}, "attrib": [{"file": "c01-reception.jpg", "title": "File:Receptionist attending to clients at the out patient.JPG", "author": "Maria Immaculata Hospital", "license": "CC BY-SA 4.0", "license_url": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Receptionist_attending_to_clients_at_the_out_patient.JPG", "changes": "уменьшено до 1000×670 px, JPEG ≤150 КБ"}, {"file": "c06-office.jpg", "title": "File:FNV Belastingservice.JPG", "author": "S.J. de Waard", "license": "CC BY 3.0", "license_url": "https://creativecommons.org/licenses/by/3.0", "source": "https://commons.wikimedia.org/wiki/File:FNV_Belastingservice.JPG", "changes": "уменьшено до 1000×752 px, JPEG ≤150 КБ"}, {"file": "c07-office.jpg", "title": "File:FEMA - 44994 - FEMA Public Assistance specialist in Illinois.jpg", "author": "Patsy Lynch", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:FEMA_-_44994_-_FEMA_Public_Assistance_specialist_in_Illinois.jpg", "changes": "уменьшено до 1000×773 px, JPEG ≤150 КБ"}, {"file": "c08-office.jpg", "title": "File:Partner Staff (52388904223).jpg", "author": "Joshua Tree National Park", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Partner_Staff_(52388904223).jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c10-clinic.jpg", "title": "File:Nurse checks blood pressure.jpg", "author": "Linda Bartlett (Photographer)", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Nurse_checks_blood_pressure.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c11-clinic.jpg", "title": "File:Doctor examines patient's ear.jpg", "author": "Unknown photographer", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Doctor_examines_patient%27s_ear.jpg", "changes": "уменьшено до 1000×669 px, JPEG ≤150 КБ"}, {"file": "c12-clinic.jpg", "title": "File:Doctor consults with patient (7).jpg", "author": "Bill Branson (Photographer)", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Doctor_consults_with_patient_(7).jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c13-clinic.jpg", "title": "File:Doctor examines patient (1).jpg", "author": "Unknown photographer", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Doctor_examines_patient_(1).jpg", "changes": "уменьшено до 1000×652 px, JPEG ≤150 КБ"}, {"file": "c15-classroom.jpg", "title": "File:ELEC Tutor Answering Question Adult Learner Classroom Session.jpg", "author": "Charanjitmannu", "license": "CC BY-SA 4.0", "license_url": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:ELEC_Tutor_Answering_Question_Adult_Learner_Classroom_Session.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c19-cafe.jpg", "title": "File:Waitress Kenya.jpg", "author": "safaritravelplus", "license": "CC0", "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "source": "https://commons.wikimedia.org/wiki/File:Waitress_Kenya.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c20-cafe.jpg", "title": "File:Serving coffee in a cafe during the morning hours with a waiter carrying a tray of drinks for customers.jpg", "author": "Shixart1985", "license": "CC BY 2.0", "license_url": "https://creativecommons.org/licenses/by/2.0", "source": "https://commons.wikimedia.org/wiki/File:Serving_coffee_in_a_cafe_during_the_morning_hours_with_a_waiter_carrying_a_tray_of_drinks_for_customers.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c23-warehouse.jpg", "title": "File:Forklift Operator Smile.jpg", "author": "Marius140%", "license": "CC BY-SA 4.0", "license_url": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Forklift_Operator_Smile.jpg", "changes": "уменьшено до 1000×753 px, JPEG ≤150 КБ"}]}</script>
+<script id="manifest" type="application/json">{"v": 1, "build": "2026-09-29T17:14:21", "url": "https://sk2flash-rgb.github.io/toeic-trainer/", "bank": ["bank/b01-p1-8328ccdb.json", "bank/b01-p2-ffa52a76.json", "bank/b01-p3-070809c4.json", "bank/b01-p4-00ab2418.json", "bank/b01-p5-33eb74c2.json", "bank/b01-p6-f0c1b9b1.json", "bank/b01-p7-2e7b8f45.json", "bank/diag-a55729cd.json"], "img": {"c01-reception.jpg": "img/c01-reception-65ca6498.jpg", "c06-office.jpg": "img/c06-office-482fbeb7.jpg", "c07-office.jpg": "img/c07-office-10a3ab85.jpg", "c08-office.jpg": "img/c08-office-b117937c.jpg", "c11-clinic.jpg": "img/c11-clinic-70f0641b.jpg", "c12-clinic.jpg": "img/c12-clinic-0ed80ff0.jpg", "c13-clinic.jpg": "img/c13-clinic-ab6ccc4f.jpg", "c15-classroom.jpg": "img/c15-classroom-04fcb542.jpg", "c19-cafe.jpg": "img/c19-cafe-736728e6.jpg", "c23-warehouse.jpg": "img/c23-warehouse-eeca8b5e.jpg", "c10-clinic.jpg": "img/c10-clinic-f68cc946.jpg", "c20-cafe.jpg": "img/c20-cafe-2147aac4.jpg"}, "audio": {"b01-p1-1-8ff2639e.mp3": "audio/b01-p1-1-8ff2639e.mp3", "b01-p2-1-c6ec96c0.mp3": "audio/b01-p2-1-c6ec96c0.mp3", "b01-p2-2-59642517.mp3": "audio/b01-p2-2-59642517.mp3", "b01-p3-1-7188fb6f.mp3": "audio/b01-p3-1-7188fb6f.mp3", "b01-p3-2-b836f79e.mp3": "audio/b01-p3-2-b836f79e.mp3", "b01-p4-1-b6cbafd8.mp3": "audio/b01-p4-1-b6cbafd8.mp3", "b01-p4-2-d62b831f.mp3": "audio/b01-p4-2-d62b831f.mp3", "diag-p1-1-bd7f1fd9.mp3": "audio/diag-p1-1-bd7f1fd9.mp3", "diag-p2-1-0015c510.mp3": "audio/diag-p2-1-0015c510.mp3", "diag-p3-1-b9aeb7c9.mp3": "audio/diag-p3-1-b9aeb7c9.mp3", "diag-p4-1-6c577557.mp3": "audio/diag-p4-1-6c577557.mp3"}, "attrib": [{"file": "c01-reception.jpg", "title": "File:Receptionist attending to clients at the out patient.JPG", "author": "Maria Immaculata Hospital", "license": "CC BY-SA 4.0", "license_url": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Receptionist_attending_to_clients_at_the_out_patient.JPG", "changes": "уменьшено до 1000×670 px, JPEG ≤150 КБ"}, {"file": "c06-office.jpg", "title": "File:FNV Belastingservice.JPG", "author": "S.J. de Waard", "license": "CC BY 3.0", "license_url": "https://creativecommons.org/licenses/by/3.0", "source": "https://commons.wikimedia.org/wiki/File:FNV_Belastingservice.JPG", "changes": "уменьшено до 1000×752 px, JPEG ≤150 КБ"}, {"file": "c07-office.jpg", "title": "File:FEMA - 44994 - FEMA Public Assistance specialist in Illinois.jpg", "author": "Patsy Lynch", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:FEMA_-_44994_-_FEMA_Public_Assistance_specialist_in_Illinois.jpg", "changes": "уменьшено до 1000×773 px, JPEG ≤150 КБ"}, {"file": "c08-office.jpg", "title": "File:Partner Staff (52388904223).jpg", "author": "Joshua Tree National Park", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Partner_Staff_(52388904223).jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c10-clinic.jpg", "title": "File:Nurse checks blood pressure.jpg", "author": "Linda Bartlett (Photographer)", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Nurse_checks_blood_pressure.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c11-clinic.jpg", "title": "File:Doctor examines patient's ear.jpg", "author": "Unknown photographer", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Doctor_examines_patient%27s_ear.jpg", "changes": "уменьшено до 1000×669 px, JPEG ≤150 КБ"}, {"file": "c12-clinic.jpg", "title": "File:Doctor consults with patient (7).jpg", "author": "Bill Branson (Photographer)", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Doctor_consults_with_patient_(7).jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c13-clinic.jpg", "title": "File:Doctor examines patient (1).jpg", "author": "Unknown photographer", "license": "Public domain", "license_url": "", "source": "https://commons.wikimedia.org/wiki/File:Doctor_examines_patient_(1).jpg", "changes": "уменьшено до 1000×652 px, JPEG ≤150 КБ"}, {"file": "c15-classroom.jpg", "title": "File:ELEC Tutor Answering Question Adult Learner Classroom Session.jpg", "author": "Charanjitmannu", "license": "CC BY-SA 4.0", "license_url": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:ELEC_Tutor_Answering_Question_Adult_Learner_Classroom_Session.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c19-cafe.jpg", "title": "File:Waitress Kenya.jpg", "author": "safaritravelplus", "license": "CC0", "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "source": "https://commons.wikimedia.org/wiki/File:Waitress_Kenya.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c20-cafe.jpg", "title": "File:Serving coffee in a cafe during the morning hours with a waiter carrying a tray of drinks for customers.jpg", "author": "Shixart1985", "license": "CC BY 2.0", "license_url": "https://creativecommons.org/licenses/by/2.0", "source": "https://commons.wikimedia.org/wiki/File:Serving_coffee_in_a_cafe_during_the_morning_hours_with_a_waiter_carrying_a_tray_of_drinks_for_customers.jpg", "changes": "уменьшено до 1000×666 px, JPEG ≤150 КБ"}, {"file": "c23-warehouse.jpg", "title": "File:Forklift Operator Smile.jpg", "author": "Marius140%", "license": "CC BY-SA 4.0", "license_url": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Forklift_Operator_Smile.jpg", "changes": "уменьшено до 1000×753 px, JPEG ≤150 КБ"}]}</script>
 <script>(() => {
 'use strict';
 const L = (() => {
@@ -1089,6 +1114,8 @@ const WD_SHORT = ['จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส', 'อา'];
 const MON = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const SLOT_TH = { diag: 'แบบทดสอบวัดระดับ', lesson: 'บทเรียนวันนี้', revise: 'ทบทวน', practice: 'ฝึกทีละส่วน' };
 const I = {
+  eye: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><\/svg>',
+  chev: '<svg class="icon rv-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/><\/svg>',
   play: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10.4-6.5a1 1 0 0 0 0-1.8L9.5 4.6A1 1 0 0 0 8 5.5z"/><\/svg>',
   pause: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="5" width="4" height="14" rx="1.2"/><rect x="13.5" y="5" width="4" height="14" rx="1.2"/><\/svg>',
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/><\/svg>',
@@ -1205,8 +1232,8 @@ function go(screen, params = {}) {
   S.ui.route = screen === 'quiz' || screen === 'review' ? { screen, slot: view.slot, idx: view.idx } : null;
   save();
   closeSheet(true);
-  render();
   window.scrollTo(0, 0);
+  render();
   const cur = $('.qs.cur');                         // P3/P4: 2-й и 3-й вопрос блока — докрутить, чтобы варианты не ушли под плеер
   if (cur && cur.previousElementSibling) {
     cur.style.scrollMargin = `${$('.qbar').offsetHeight + 12}px 0 ${$('.bottom').offsetHeight + 12}px`;   // панель выше с safe-area и строкой ошибки звука
@@ -1247,6 +1274,10 @@ function afterRender() {
     }
   }
   if (view.screen === 'review') { const b = reviewBlock(); if (b && b.audio) { loadPack(b.audio.pack); refreshR(); } }
+  if (view.screen === 'rlist' && view.focus != null) {   // возврат из разбора пункта — к тому же пункту списка
+    const d = $(`.rv-item[data-i="${view.focus}"]`);
+    if (d) { d.open = true; d.scrollIntoView({ block: 'center' }); }
+  }
 }
 function photoFail() {                             // фото P1 не загрузилось: подпись и повтор, а не битая картинка
   const img = $('img.photo');
@@ -1633,9 +1664,9 @@ function blockDots(s, idx) {
   const k = mine.findIndex(([, i]) => i === idx);
   return `<div class="b-dots">${mine.map(([it, i]) => `<i class="${i === idx ? 'on' : it.a ? 'did' : ''}"><\/i>`).join('')}<span>คำถาม ${k + 1} จาก ${mine.length}<\/span><\/div>`;
 }
-function qbar(title, sub) {
+function qbar(title, sub, exitLabel = 'กลับหน้าหลัก') {
   return `<div class="qbar"><div class="qbar-in">
-    <button class="ib" type="button" data-act="exit" aria-label="กลับหน้าหลัก">${I.close}<\/button>
+    <button class="ib" type="button" data-act="exit" aria-label="${exitLabel}">${I.close}<\/button>
     <div class="ttl"><b>${title}<\/b><span>${sub}<\/span><\/div>
     <button class="ib" type="button" data-act="flag" aria-label="แจ้งข้อผิดพลาด">${I.flag}<\/button><\/div><\/div>`;
 }
@@ -1647,6 +1678,8 @@ function quizHTML() {
   if (view.blockId !== blk.id) { view.blockId = blk.id; view.tab = 0; }
   const head = qbar(partTitle(part), sessionName(s)) +
     `<div class="prog"><span class="num">${done}/${s.items.length}<\/span><div class="track"><div class="fill" style="width:${(done / s.items.length) * 100}%"><\/div><\/div><span>ประมาณ ${minutes(left)} นาที<\/span><\/div>`;
+  const peek = canPeek(s)
+    ? `<div class="peek-bar"><button class="chip-btn peek" type="button" data-act="peek">${I.eye}ดูเฉลยข้อที่แล้ว<\/button><\/div>` : '';
   const dots = blockDots(s, s.pos);
   const sec = (inner) => `<section class="q" data-q="${it.q}" data-mode="${test ? 'test' : 'learn'}">${inner}
     <button class="btn pri confirm" type="button" data-act="confirm" ${picked() ? '' : 'disabled'}>ตอบ<\/button><\/section>`;
@@ -1681,7 +1714,7 @@ function quizHTML() {
     body = `<div class="c-split">${textsHTML(blk, fill)}<div class="wrap" style="padding-top:12px">${dots}
       ${sec(`${stem}${optsHTML(q, part, true)}`)}<\/div><\/div>`;
   }
-  return `<div class="screen">${head}${body}<\/div>`;
+  return `<div class="screen">${head}${peek}${body}<\/div>`;
 }
 
 // ---------------- разбор ----------------
@@ -1692,19 +1725,22 @@ function transcriptHTML(blk, q) {
   }
   return (blk.lines || []).map((l) => `<p><span class="spk" title="${l.s[0] === 'W' ? 'ผู้หญิง' : 'ผู้ชาย'}">${esc(l.s)}<\/span><span lang="en">${esc(l.text)}<\/span><\/p>`).join('');
 }
+function yoursHTML(it) {
+  const meta = bank.q[it.q], q = RAW.qs[it.q], ok = it.a === meta.answer;
+  const opt = (l) => esc(q.options[LET.indexOf(l)]);
+  return ok
+    ? `<span class="bub r">${meta.answer}<\/span><span class="t" lang="en">${opt(meta.answer)}<small lang="th">คำตอบของคุณ<\/small><\/span>`
+    : `<span class="bub w">${it.a}<\/span><span class="t" lang="en">${opt(it.a)}<small lang="th">คุณเลือก<\/small><\/span>
+       <span class="bub r">${meta.answer}<\/span><span class="t" lang="en">${opt(meta.answer)}<small lang="th">คำตอบที่ถูก<\/small><\/span>`;
+}
 function reviewHTML() {
   const s = session(), it = reviewItem(), meta = bank.q[it.q], q = RAW.qs[it.q], blk = RAW.blocks[meta.block], part = meta.part;
-  const ok = it.a === meta.answer, li = LET.indexOf(it.a), ki = LET.indexOf(meta.answer);
-  const opt = (i) => esc(q.options[i]);
-  const yours = ok
-    ? `<span class="bub r">${meta.answer}<\/span><span class="t" lang="en">${opt(ki)}<small lang="th">คำตอบของคุณ<\/small><\/span>`
-    : `<span class="bub w">${it.a}<\/span><span class="t" lang="en">${opt(li)}<small lang="th">คุณเลือก<\/small><\/span>
-       <span class="bub r">${meta.answer}<\/span><span class="t" lang="en">${opt(ki)}<small lang="th">คำตอบที่ถูก<\/small><\/span>`;
+  const ok = it.a === meta.answer, yours = yoursHTML(it);
   const words = (q.words || []).map((w) => `<dt lang="en">${esc(w.en)}<\/dt><dd>${esc(w.th)}<\/dd>`).join('');
   const audio = AUDIO_PARTS.includes(part) && blk.audio;
   const txTitle = { p1: 'ประโยคที่ได้ยิน', p2: 'คำถามและคำตอบที่ได้ยิน', p3: 'บทสนทนา', p4: 'สิ่งที่ได้ยิน' }[part];
   const last = s.items.every((x) => x.a !== null);
-  return `<div class="screen">${qbar(`เฉลย · ข้อ ${view.idx + 1}`, partTitle(part))}
+  return `<div class="screen">${qbar(`เฉลย · ข้อ ${view.idx + 1}`, partTitle(part), view.from === 'rlist' ? 'กลับไปที่เฉลย' : undefined)}
     <div class="wrap">
       <div class="verdict ${ok ? 'ok' : 'no'}">${ok ? 'ถูกต้อง' : 'ยังไม่ถูก'}<\/div>
       <div class="c-yours">${yours}<\/div>
@@ -1715,7 +1751,56 @@ function reviewHTML() {
         <div class="tx">${transcriptHTML(blk, q)}<\/div><\/section>` : ''}
       <button class="flag" type="button" data-act="flag">${I.flag}แจ้งข้อผิดพลาดในข้อนี้<\/button>
     <\/div>
-    <div class="bottom"><div class="bottom-in"><button class="btn pri" type="button" data-act="next">${last ? 'ดูสรุป' : 'ข้อถัดไป'}<\/button><\/div><\/div><\/div>`;
+    <div class="bottom"><div class="bottom-in">${view.from === 'rlist' ? '<button class="btn pri" type="button" data-act="rlist-return">กลับไปที่เฉลย<\/button>'
+      : `<button class="btn pri" type="button" data-act="next">${last ? 'ดูสรุป' : 'ข้อถัดไป'}<\/button>`}<\/div><\/div><\/div>`;
+}
+
+// ---------------- список разбора: тест, занятие, практика (решение 29.09, макет 2A) ----------------
+function stemBrief(it) {
+  const meta = bank.q[it.q], q = RAW.qs[it.q];
+  if (meta.part === 'p1') return '<span class="rv-aud">ฟังแล้วเลือกประโยคที่ตรงกับภาพ<\/span>';
+  if (meta.part === 'p6') return `<span class="rv-aud">${q.sentence ? 'เลือกประโยคสำหรับช่องว่าง' : 'ช่องว่าง'} ${q.blank}<\/span>`;
+  return `<span lang="en">${esc(q.stem).replace(/-{4,}/g, '_____')}<\/span>`;
+}
+function rlistHTML() {
+  const s = session(), done = s.items.map((it, i) => [it, i]).filter(([it]) => it.a !== null);
+  const wrong = done.filter(([it]) => !isRight(it)), all = view.all || !wrong.length, list = all ? done : wrong;
+  const row = ([it, i]) => {
+    const meta = bank.q[it.q], q = RAW.qs[it.q], ok = isRight(it);
+    const more = AUDIO_PARTS.includes(meta.part) ? 'ฟังอีกครั้ง · ดูบทพูด' : (q.words || []).length ? 'ดูคำศัพท์' : '';
+    return `<li><details class="rv-item" data-i="${i}" ${ok ? '' : 'open'}><summary class="rv-row"><span class="rv-n num">${i + 1}<\/span>
+        <span class="rv-mk ${ok ? 'ok' : 'no'}" role="img" aria-label="${ok ? 'ถูก' : 'ผิด'}">${ok ? '✓' : '✕'}<\/span>
+        <span class="rv-t"><span class="rv-s">${stemBrief(it)}<\/span><span class="rv-sub">${ok ? `ตอบ ${it.a} ถูก` : `คุณตอบ ${it.a} · ที่ถูก ${meta.answer}`}<\/span><\/span>${I.chev}<\/summary>
+      <div class="rv-body"><div class="c-yours">${yoursHTML(it)}<\/div>${q.why_th ? `<p class="why">${esc(q.why_th)}<\/p>` : ''}
+        ${more ? `<div class="row"><button class="chip-btn" type="button" data-act="rlist-open" data-i="${i}">${more}<\/button><\/div>` : ''}<\/div><\/details><\/li>`;
+  };
+  const groups = L.PARTS.map((p) => {
+    const mine = list.filter(([it]) => bank.q[it.q].part === p);
+    if (!mine.length) return '';
+    const inPart = done.filter(([it]) => bank.q[it.q].part === p), r = inPart.filter(([it]) => isRight(it)).length;
+    return `<section class="rv-grp"><h2 class="group-h">${partTitle(p)} ${nw(`<span class="muted">${r}/${inPart.length}<\/span>`)}<\/h2><ul class="rv-list">${mine.map(row).join('')}<\/ul><\/section>`;
+  }).join('');
+  const tabs = wrong.length ? `<div class="tabs" role="tablist">
+      <button type="button" role="tab" data-act="rlist-tab" data-all="0" aria-selected="${!all}">ข้อที่ผิด ${wrong.length}<\/button>
+      <button type="button" role="tab" data-act="rlist-tab" data-all="1" aria-selected="${all}">ทั้งหมด ${done.length}<\/button><\/div>`
+    : '<p class="verdict ok">ตอบถูกทุกข้อ<\/p>';
+  return `<div class="screen"><div class="qbar"><div class="qbar-in">
+      <button class="ib" type="button" data-act="rlist-close" aria-label="กลับ">${I.close}<\/button>
+      <div class="ttl"><b>${s.kind === 'diag' ? 'เฉลยแบบทดสอบวัดระดับ' : `เฉลย · ${sessionName(s)}`}<\/b><span>${nw(`ถูก ${done.length - wrong.length} จาก ${done.length}`)}<\/span><\/div><span><\/span><\/div><\/div>
+    <div class="wrap">${tabs}${groups}<\/div><\/div>`;
+}
+const rlistBack = () => go('rlist', { slot: view.slot, back: view.rback, all: view.all, focus: view.idx });
+// Шторка теста «ดูเฉลยข้อที่แล้ว» (макет 3B): разбор предыдущего ответа, ответ не меняется.
+function peekHTML() {
+  const s = session(), it = s.items[sheetOpen.peek], meta = bank.q[it.q], q = RAW.qs[it.q], ok = isRight(it);
+  const stem = meta.part === 'p1' || meta.part === 'p6' ? '' : `<p class="stem" lang="en">${esc(q.stem).replace(/-{4,}/g, '_____')}<\/p>`;
+  return `<div class="shade" data-act="sheet-close"><\/div>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h"><div class="sheet-in"><div class="handle"><\/div>
+      <h2 id="sheet-h" class="sec-h">ข้อ ${sheetOpen.peek + 1} · ${partTitle(meta.part)}<\/h2>${stem}
+      <div class="verdict ${ok ? 'ok' : 'no'}">${ok ? 'ถูกต้อง' : 'ยังไม่ถูก'}<\/div><div class="c-yours">${yoursHTML(it)}<\/div>
+      ${q.why_th ? `<p class="why">${esc(q.why_th)}<\/p>` : ''}
+      <p class="small muted">ข้อที่ตอบแล้วแก้ไม่ได้ ผลแบบทดสอบไม่เปลี่ยน<\/p>
+      <button class="btn pri" type="button" data-act="sheet-close">กลับไปทำแบบทดสอบ<\/button><\/div><\/div>`;
 }
 
 // ---------------- главный, практика, прогресс ----------------
@@ -1812,26 +1897,34 @@ function practiceHTML() {
         <div class="group-h">อ่าน · Reading<\/div>${['p5', 'p6', 'p7'].map(row).join('')}<\/section>
     <\/div>${nav('practice')}<\/div>`;
 }
-function rangeHTML(sec, name) {
-  const r = L.scoreRange(S.st.tests)[sec];
-  if (!r) return '';
-  return `<div class="range"><div class="top"><b>${name}<\/b><span class="num">${r.lo}–${r.hi}<\/span><\/div>
-    <div class="scale" role="img" aria-label="${name} ${r.lo} ถึง ${r.hi} จาก 495"><i style="left:${((r.lo - 5) / 490) * 100}%;width:${((r.hi - r.lo) / 490) * 100}%"><\/i><\/div>
-    <div class="scale-ax"><span>5<\/span><span>250<\/span><span>495<\/span><\/div><\/div>`;
+const SEC_PARTS = { L: ['p1', 'p2', 'p3', 'p4'], R: ['p5', 'p6', 'p7'] };
+const pctOf = (r, n) => Math.round((r * 100) / n);
+// Итог теста (решение 29.09): верные ответы крупно, пересчёт в шкалу TOEIC (§6.7) — одной мелкой строкой.
+function testCardHTML(title, extra = '') {
+  const t = S.st.tests, sr = L.scoreRange(t);
+  const sum = (ps) => ps.reduce((a, p) => (t[p] ? [a[0] + t[p][0], a[1] + t[p][1]] : a), [0, 0]);
+  const cL = sum(SEC_PARTS.L), cR = sum(SEC_PARTS.R), all = [cL[0] + cR[0], cL[1] + cR[1]];
+  if (!all[1]) return '';                             // итогов нет (все пункты теста сняты сверкой)
+  const row = (name, x) => (x[1] ? `<div class="sc-row"><div class="sc-top"><b>${name}<\/b><span class="sc-n">${nw(`<span class="num">${x[0]}/${x[1]}<\/span><span class="sc-pc">${pctOf(x[0], x[1])} %<\/span>`)}<\/span><\/div>
+    <div class="meter" role="img" aria-label="${name} ถูก ${x[0]} จาก ${x[1]}"><i style="width:${pctOf(x[0], x[1])}%"><\/i><\/div><\/div>` : '');
+  const toeic = sr.L && sr.R ? `<p class="note">${nw(`เทียบคะแนน TOEIC โดยประมาณ ≈ ${sr.L.mid + sr.R.mid} จาก 990`)} ${nw(`(Listening ≈ ${sr.L.mid}`)} · ${nw(`Reading ≈ ${sr.R.mid})`)}<\/p>` : '';
+  return `<section class="card stack sc-card"><div class="sc-hero"><h2 class="sec-h">${title}<\/h2>
+      <p><span class="sc-big num">${all[0]}/${all[1]}<\/span><span class="sc-of">${pctOf(all[0], all[1])} %<\/span><\/p><\/div>
+    ${row('Listening', cL)}${row('Reading', cR)}${toeic}${extra}<\/section>`;
 }
+const diagAnswered = () => (S.st.diag ? S.st.diag.items.filter((x) => x.a !== null).length : 0);
 function progressHTML() {
   const pr = L.progress(S.st, bank), weak = weakParts(), total = S.st.log.reduce((a, r) => a + r[1], 0);
   const row = (part) => { const x = pr[part], pct = x.acc == null ? null : Math.round(x.acc * 100);
     return `<div class="prow"><div class="pn"><b>Part ${partNo(part)}<\/b>${weak.includes(part) ? '<span class="weak-tag">ควรฝึก<\/span>' : ''}<span>${PART_TH[part]} · ${nw(`ทำแล้ว ${x.seen}/${x.total}`)}<\/span><\/div>
       <div class="meter" role="img" aria-label="ถูก ${pct == null ? 'ยังไม่มีข้อมูล' : pct + '%'}"><i style="width:${pct || 0}%"><\/i><\/div><div class="v">${pct == null ? '—' : pct + '%'}<\/div><\/div>`; };
-  const tr = L.scoreRange(S.st.tests);
   return `<div class="screen">${appbar('ความคืบหน้า')}
     <div class="wrap">
       <section class="card stack"><h2 class="sec-h">ตอบถูกครั้งแรก ตามส่วน<\/h2><div class="parts">
         <div class="group-h">ฟัง · Listening<\/div>${['p1', 'p2', 'p3', 'p4'].map(row).join('')}
         <div class="group-h">อ่าน · Reading<\/div>${['p5', 'p6', 'p7'].map(row).join('')}<\/div><\/section>
-      ${tr.L || tr.R ? `<section class="card stack"><h2 class="sec-h">คะแนนโดยประมาณจากแบบทดสอบวัดระดับ<\/h2>${rangeHTML('L', 'Listening')}${rangeHTML('R', 'Reading')}
-        <p class="note">ค่าประมาณ ไม่ใช่คะแนนจริง<\/p><\/section>` : ''}
+      ${L.diagDone(S.st) ? testCardHTML('แบบทดสอบวัดระดับ · ตอบถูก', diagAnswered()
+        ? '<button class="btn sec" type="button" data-act="open-rlist" data-slot="diag">ดูเฉลยแบบทดสอบ<\/button>' : '') : ''}
       <section class="card stack"><p>${nw(`ตอบไปแล้ว <b class="num">${total}<\/b> ข้อ`)} · ${nw(`เรียนต่อเนื่องนานที่สุด <b class="num">${S.st.streak.best}<\/b> วัน`)}<\/p><\/section>
       <section class="card stack"><h2 class="sec-h">รหัสความคืบหน้า<\/h2>
         <p class="small muted">ใช้ย้ายความคืบหน้าไปเครื่องหรือเบราว์เซอร์อื่น และกู้คืนถ้าข้อมูลหาย<\/p>
@@ -1858,20 +1951,22 @@ function introHTML() {
         <p>เริ่มด้วยแบบทดสอบวัดระดับ 40 ข้อ ครบทั้ง 7 ส่วน ประมาณ 30 นาที แล้วแอปจะจัดบทเรียนแต่ละวันตามส่วนที่ยังอ่อน<\/p><\/div>
       <section class="card stack"><h2 class="sec-h">เปิดแอปนี้ทุกวันอย่างไร<\/h2><ol class="steps">${steps.map((t) => `<li><span>${t}<\/span><\/li>`).join('')}<\/ol><\/section>
       <section class="card stack"><h2 class="sec-h">ในแบบทดสอบ<\/h2>
-        <p class="small">แตะตัวเลือกแล้วแตะ «ตอบ» ก่อนแตะ «ตอบ» เปลี่ยนตัวเลือกได้ เสียงหยุด ย้อน และฟังซ้ำได้ ตอบแล้วย้อนกลับไม่ได้ เฉลยจะเห็นในบทเรียนประจำวัน ปิดแอปกลางคันได้ แอปจะทำต่อจากข้อเดิม<\/p><\/section>
+        <p class="small">แตะตัวเลือกแล้วแตะ «ตอบ» ก่อนแตะ «ตอบ» เปลี่ยนตัวเลือกได้ เสียงหยุด ย้อน และฟังซ้ำได้ ตอบแล้วย้อนกลับไม่ได้ ดูเฉลยและคำอธิบายได้ทุกข้อหลังจบแบบทดสอบ หรือแตะ «ดูเฉลยข้อที่แล้ว» ระหว่างทำ ปิดแอปกลางคันได้ แอปจะทำต่อจากข้อเดิม<\/p><\/section>
       <button class="link" type="button" data-act="restore">มีรหัสความคืบหน้าแล้ว กู้คืนจากรหัส<\/button>
     <\/div>
     <div class="bottom"><div class="bottom-in"><button class="btn pri" type="button" data-act="start-diag">เริ่มแบบทดสอบวัดระดับ<\/button><\/div><\/div><\/div>`;
 }
 function resultHTML() {
-  const t = S.st.tests, sr = L.scoreRange(t);
+  const t = S.st.tests, n = diagAnswered(), wrongN = n ? S.st.diag.items.filter((x) => x.a !== null && !isRight(x)).length : 0;
   const pct = (p) => (t[p] ? t[p][0] / t[p][1] : 1);
   const order = L.PARTS.filter((p) => t[p]).sort((a, b) => pct(a) - pct(b) || L.EXAM_SHARE[b] - L.EXAM_SHARE[a]);
   const weak = order.slice(0, 3), rest = L.PARTS.filter((p) => t[p] && !weak.includes(p));
   return `<div class="screen">${appbar('ผลการทดสอบวัดระดับ')}
     <div class="wrap">
-      <section class="card stack">${rangeHTML('L', 'Listening')}${rangeHTML('R', 'Reading')}
-        <p class="note">${sr.total ? `${nw(`รวมประมาณ <b class="num">${sr.total.lo}–${sr.total.hi}<\/b> จาก 990`)} · ` : ''}ค่าประมาณ ไม่ใช่คะแนนจริง<\/p><\/section>
+      ${testCardHTML('ตอบถูก')}
+      ${n ? `<section class="card stack"><h2 class="sec-h">เฉลยและคำอธิบาย<\/h2>
+        <p class="small muted">ดูคำตอบที่ถูกและเหตุผลภาษาไทยได้ทุกข้อ${wrongN ? ` ${nw(`ข้อที่ผิด ${wrongN} ข้อ`)}แสดงก่อน` : ''}<\/p>
+        <button class="btn sec" type="button" data-act="open-rlist" data-slot="diag">ดูเฉลยทั้ง ${n} ข้อ<\/button><\/section>` : ''}
       <section class="card stack"><h2 class="sec-h">ส่วนที่จะฝึกก่อน<\/h2><div class="parts">
         ${weak.map((p) => `<div class="prow"><div class="pn"><b>Part ${partNo(p)}<\/b><span>${PART_TH[p]} · <span lang="en">${PART_EN[p]}<\/span><\/span><\/div>
           <div class="meter" role="img" aria-label="ถูก ${t[p][0]} จาก ${t[p][1]}"><i style="width:${pct(p) * 100}%"><\/i><\/div><div class="v">${t[p][0]}/${t[p][1]}<\/div><\/div>`).join('')}<\/div>
@@ -1895,6 +1990,7 @@ function doneHTML() {
       <section class="card stack"><h2 class="sec-h">ตามส่วน<\/h2><div class="parts">${L.PARTS.filter((p) => by[p]).map((p) =>
         `<div class="prow"><div class="pn"><b>Part ${partNo(p)}<\/b><span>${PART_TH[p]}<\/span><\/div>
           <div class="meter" role="img" aria-label="ถูก ${by[p][0]} จาก ${by[p][1]}"><i style="width:${(by[p][0] / by[p][1]) * 100}%"><\/i><\/div><div class="v">${by[p][0]}/${by[p][1]}<\/div><\/div>`).join('')}<\/div><\/section>
+      <button class="btn sec" type="button" data-act="open-rlist" data-slot="${view.slot}">${wrong ? `ดูข้อที่ผิด ${wrong} ข้อ และเฉลย` : 'ดูเฉลยทุกข้อ'}<\/button>
       ${wrong ? `<p class="small muted">ข้อที่ตอบผิดครั้งแรก จะกลับมาให้ทบทวนพรุ่งนี้ และอีกครั้งหลังจากนั้น 7 วัน<\/p>` : ''}
     <\/div>
     <div class="bottom"><div class="bottom-in"><button class="btn pri" type="button" data-act="home">กลับหน้าหลัก<\/button><\/div><\/div><\/div>`;
@@ -1946,11 +2042,24 @@ function errorHTML() {
 const SCREENS = {
   loading: () => '<div class="wrap"><p class="muted">กำลังโหลด…<\/p><\/div>',
   intro: introHTML, home: homeHTML, practice: practiceHTML, progress: progressHTML, quiz: quizHTML, review: reviewHTML,
-  done: doneHTML, result: resultHTML, code: codeHTML, attrib: attribHTML, error: errorHTML,
+  done: doneHTML, result: resultHTML, rlist: rlistHTML, code: codeHTML, attrib: attribHTML, error: errorHTML,
 };
 
 // ---------------- шторка «есть ошибка» (закрывается кнопкой «Назад» через history) ----------------
 let sheetOpen = false;
+// Только между заданиями (решение 29.09): разбор соседа по тексту/записи подсказал бы ответ на текущий вопрос.
+function canPeek(s) {
+  const prev = s && s.kind === 'diag' && s.pos > 0 ? s.items[s.pos - 1] : null, it = prev && s.items[s.pos];
+  return !!(prev && prev.a !== null && it && bank.q[prev.q].block !== bank.q[it.q].block);
+}
+function openPeek() {
+  const s = session();
+  if (!canPeek(s)) return;
+  sheetOpen = { peek: s.pos - 1 };
+  clearTimeout(toast.timer); $('#toast').hidden = true;
+  history.pushState({ sheet: 1 }, '');
+  $('#sheet-root').innerHTML = peekHTML();
+}
 function flagTarget() {
   if (view.screen === 'review') return reviewItem().q;
   if (view.screen === 'quiz') return curItem().q;
@@ -2046,7 +2155,14 @@ const ACT = {
   slow: (b) => { S.ui.slow = !S.ui.slow; save(); b.setAttribute('aria-pressed', S.ui.slow); setRate(ra.el, S.ui.slow ? 0.75 : 1); },
   tab: (b) => { view.tab = +b.dataset.i; render(); },
   next: () => go('quiz', { slot: view.slot, blockId: view.blockId, tab: view.tab }),
-  exit: () => go('home'),
+  exit: () => (view.from === 'rlist' ? rlistBack() : go('home')),
+  peek: () => openPeek(),
+  'sheet-close': () => closeSheet(false),
+  'open-rlist': (b) => go('rlist', { slot: b.dataset.slot, back: view.screen, all: false }),
+  'rlist-tab': (b) => go('rlist', { slot: view.slot, back: view.back, all: b.dataset.all === '1' }),
+  'rlist-open': (b) => go('review', { slot: view.slot, idx: +b.dataset.i, from: 'rlist', rback: view.back, all: view.all }),
+  'rlist-return': () => rlistBack(),
+  'rlist-close': () => go(view.back || 'home', { slot: view.slot }),
   home: () => go('home'),
   'nav-home': () => go('home'),
   'nav-practice': () => go('practice'),
